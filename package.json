@@ -8,7 +8,7 @@
   },
   "engines": {
     "npm": ">=5",
-    "node": ">=8.15.1"
+    "node": ">=8.15.1 <17.0.0"
   },
   "author": "Team 33 (Tutor Group 4)",
   "license": "MIT",
