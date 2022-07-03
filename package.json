@@ -1,16 +1,16 @@
 {
-  "name": "react-boilerplate",
-  "version": "4.0.0",
-  "description": "A highly scalable, offline-first foundation with the best DX and a focus on performance and best practices",
+  "name": "cm2020-agil-t3g4-wcm",
+  "version": "0.0.1",
+  "description": "Course work for CM2020 Agile Software Project",
   "repository": {
     "type": "git",
-    "url": "git://github.com/react-boilerplate/react-boilerplate.git"
+    "url": "git@github.com:hh11100/cm2020-agil-t3g4-wcm.git"
   },
   "engines": {
     "npm": ">=5",
     "node": ">=8.15.1"
   },
-  "author": "Max Stoiber",
+  "author": "Team 33 (Tutor Group 4)",
   "license": "MIT",
   "scripts": {
     "analyze:clean": "rimraf stats.json",
@@ -148,7 +148,7 @@
     "react-test-renderer": "16.8.6",
     "react-testing-library": "6.1.2",
     "rimraf": "2.6.3",
-    "shelljs": "^0.8.3",
+    "shelljs": "^0.8.5",
     "style-loader": "0.23.1",
     "stylelint": "10.0.1",
     "stylelint-config-recommended": "2.2.0",
