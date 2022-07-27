@@ -20,19 +20,21 @@ router.post('/upload', async (req, res) => {
           });
       } else {
           //Use name of input field 'document' to fetch uploaded file
-          const document = req.files.document;
+          const file = req.files.file;
+
+          console.log(req.body);
           
           //Use the mv() method to place the file to uploads folder
-          document.mv('./uploads/' + document.name);
+          file.mv('./uploads/' + file.name);
 
           //send response
           res.send({
               status: true,
               message: 'File is uploaded',
               data: {
-                  name: document.name,
-                  mimetype: document.mimetype,
-                  size: document.size
+                  name: file.name,
+                  mimetype: file.mimetype,
+                  size: file.size
               }
           });
       }

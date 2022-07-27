@@ -15,19 +15,19 @@
 					"mode": "formdata",
 					"formdata": [
 						{
-							"key": "document",
+							"key": "file",
 							"type": "file",
 							"src": "/Users/dsimanis/avatar.jpg"
 						}
 					]
 				},
 				"url": {
-					"raw": "http://localhost:3000/documents/upload",
+					"raw": "http://localhost:3001/documents/upload",
 					"protocol": "http",
 					"host": [
 						"localhost"
 					],
-					"port": "3000",
+					"port": "3001",
 					"path": [
 						"documents",
 						"upload"
