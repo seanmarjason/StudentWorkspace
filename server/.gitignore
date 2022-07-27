@@ -11,3 +11,6 @@
 .env.development.local
 .env.test.local
 .env.production.local
+
+# Folder where server stores uploaded documents
+uploads/

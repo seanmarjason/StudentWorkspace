@@ -1,0 +1,40 @@
+{
+	"info": {
+		"_postman_id": "2caf3cdc-68ef-4d53-864f-e221c90bb070",
+		"name": "cm2020-agil-t3g4-wcm",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "5020374"
+	},
+	"item": [
+		{
+			"name": "New Request",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "document",
+							"type": "file",
+							"src": "/Users/dsimanis/avatar.jpg"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:3000/documents/upload",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"documents",
+						"upload"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
