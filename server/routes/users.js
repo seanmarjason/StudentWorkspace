@@ -17,14 +17,14 @@ router.post('/login',
     const { username, password } = req.body;
 
     if (!username) {
-        res.status(401).end();
-        return
+      res.status(401).end();
+      return
     }
 
     const realPassword = users[username];
     if (!realPassword || realPassword !== password) {
-        res.status(401).end();
-        return
+      res.status(401).end();
+      return
     }
 
     res.locals.userName = username;
