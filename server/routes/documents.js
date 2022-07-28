@@ -16,8 +16,8 @@ router.post('/upload', async (req, res) => {
     try {
       if(!req.files) {
         res.send({
-            status: false,
-            message: 'No file uploaded'
+          status: false,
+          message: 'No file uploaded'
         });
       } else {
         //use name of form-data 'file' to fetch uploaded file
