@@ -1,10 +1,23 @@
 const express = require('express');
 const router = express.Router();
 
-const users = {
-  "bobby": "meowmeow",
-  "ricky": "notsogood"
-};
+// const users = {
+//   "bobby": "meowmeow",
+//   "ricky": "notsogood"
+// };
+
+const users = [
+  {
+    id: 100,
+    username: "bobby",
+    password: "meowmeow"
+  },
+  {
+    id: 101,
+    username: "bobby",
+    password: "notsogood"
+  }
+]
 
 /* Get users */
 router.get('/', (req, res, next) => {
@@ -16,12 +29,16 @@ router.post('/login',
   (req, res, next) => {
     const { username, password } = req.body;
 
-    if (!username) {
+    const userData = users.find((user) => user.username === username);
+
+    // User not found
+    if (!userData) {
       res.status(401).end();
       return
     }
 
-    const realPassword = users[username];
+    // Password is not set or is wrong
+    const realPassword = userData.password;
     if (!realPassword || realPassword !== password) {
       res.status(401).end();
       return

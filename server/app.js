@@ -1,11 +1,11 @@
 var createError = require('http-errors');
 var express = require('express');
-const fileUpload = require('express-fileupload');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
-const session = require('express-session')
-
+const session = require('express-session');
+const fileUpload = require('express-fileupload');
+const cors = require('cors')
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 var documentsRouter = require('./routes/documents');
@@ -22,6 +22,11 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(fileUpload({ createParentPath: true }));
+
+// add CORS policy that allows all crossdomain requests for now
+app.use(cors({ origin: '*' }));
+
+// add middleware to automatically manage login sessions
 app.use(session({
   secret: "blahblah4398u98dhuhioo",
   name: "session-id",
