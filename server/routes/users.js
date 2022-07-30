@@ -14,7 +14,7 @@ const users = [
   },
   {
     id: 101,
-    username: "bobby",
+    username: "ricky",
     password: "notsogood"
   }
 ]
@@ -33,14 +33,14 @@ router.post('/login',
 
     // User not found
     if (!userData) {
-      res.status(401).end();
+      res.status(401).send("Bad username!");
       return
     }
 
     // Password is not set or is wrong
     const realPassword = userData.password;
     if (!realPassword || realPassword !== password) {
-      res.status(401).end();
+      res.status(401).end("Bad password!");
       return
     }
 

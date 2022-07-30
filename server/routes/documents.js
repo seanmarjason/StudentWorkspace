@@ -40,7 +40,7 @@ router.post('/upload', async (req, res) => {
       res.status(500).send(err);
     }
   } else {
-    res.send(`You are cheating!`).end();
+    res.status(401).send("You are cheating!");
   }
 });
 

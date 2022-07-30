@@ -20,7 +20,7 @@ function App() {
   // Login form handler
   function handleLoginSubmit(event) {
     event.preventDefault();
-    const url = 'http://localhost:3001/users/login';
+    const url = 'http://localhost:3000/users/login';
     var { username, password } = document.forms[0];
     const formData = new FormData();
     
@@ -49,7 +49,7 @@ function App() {
     // Logout form handler
     function handleLogoutSubmit(event) {
       event.preventDefault()
-      const url = 'http://localhost:3001/users/logout';
+      const url = 'http://localhost:3000/users/logout';
   
       axios.delete(url)
       .then((response) => {
@@ -67,7 +67,7 @@ function App() {
   // File upload form handler
   function handleUploadSubmit(event) {
     event.preventDefault()
-    const url = 'http://localhost:3001/documents/upload';
+    const url = 'http://localhost:3000/documents/upload';
     const formData = new FormData();
     
     formData.append('file', file);
