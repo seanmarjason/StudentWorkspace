@@ -18,7 +18,7 @@ function App() {
   }
   
   // Login form handler
-  const handleLoginSubmit = (event) => {
+  function handleLoginSubmit(event) {
     event.preventDefault();
     const url = 'http://localhost:3001/users/login';
     var { username, password } = document.forms[0];
@@ -45,6 +45,24 @@ function App() {
       });
 
   }
+
+    // Logout form handler
+    function handleLogoutSubmit(event) {
+      event.preventDefault()
+      const url = 'http://localhost:3001/users/logout';
+  
+      axios.delete(url)
+      .then((response) => {
+        if (response.status === 200 && response.data === 'Logout successful!') {
+          console.log('Logout successful!');
+          setIsLoginSuccess(false);
+        }
+      })
+      .catch((error) => {
+        console.log(error.response.status);
+      });
+        
+    }
 
   // File upload form handler
   function handleUploadSubmit(event) {
@@ -79,6 +97,7 @@ function App() {
   const renderLoginForm = (
     <div className="form">
       <form onSubmit={handleLoginSubmit}>
+        <div className="title">Login</div>
         <div className="input-container">
           <label>Username </label>
           <input type="text" name="username" required />
@@ -99,31 +118,28 @@ function App() {
   const renderUploadForm = (
     <div className="form">
       <form onSubmit={handleUploadSubmit}>
+        <div className="title">File Upload</div>
         <div className="button-container">
           <input type="file" onChange={handleFileChange}/>
           <button type="submit">Upload</button>
         </div>
       </form>
+      <hr></hr>
+      <form onSubmit={handleLogoutSubmit}>
+        <div className="button-container">
+          <button type="submit">Logout</button>
+        </div>
+      </form>      
     </div>
   );
 
   return (
     <div className="app">
       <div className="login-form">
-        <div className="title">Sign In</div>
-        {isLoginSuccess ? <div>User is successfully logged in</div> : renderLoginForm}
+        {isLoginSuccess ? renderUploadForm : renderLoginForm}
       </div>
     </div>
   );
-
-  // return (
-  //   <div className="app">
-  //     <div className="login-form">
-  //       <div className="title">File Upload</div>
-  //       {renderUploadForm}
-  //     </div>
-  //   </div>
-  // );
 
 }
 
