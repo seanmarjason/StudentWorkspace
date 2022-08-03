@@ -7,6 +7,8 @@ import { UploadForm } from './components/UploadForm'
 
 function App() {
   //states to support login
+  // eslint-disable-next-line no-unused-vars
+  const [errorMessages, setErrorMessages] = useState({});
   const [isLoginSuccess, setIsLoginSuccess] = useState(false);
 
   //state to support file transfer
