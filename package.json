@@ -1,0 +1,24 @@
+{
+  "name": "cm2020-agil-t3g4-wcm",
+  "version": "1.0.0",
+  "description": "Monorepo for cm2020-agil-t3g4-wcm project",
+  "main": "",
+  "workspaces": [
+    "frontend",
+    "server"
+  ],
+  "scripts": {
+    "frontend-start": "npm run start --workspace=frontend",
+    "frontend-build": "npm run build --workspace=frontend",
+    "frontend-test": "npm run test --workspace=frontend",
+    "frontend-eject": "npm run ejec --workspace=frontend",
+    "backend-start": "npm run start --workspace=server",
+    "backend-auto": "npm run auto --workspace-server",
+    "start": "concurrently --kill-others --success first --prefix name --names \"frontend,server\" \"npm run frontend-start\" \"npm run backend-start\""
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "concurrently": "^7.3.0"
+  }
+}
