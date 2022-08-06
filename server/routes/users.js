@@ -1,23 +1,6 @@
 const express = require('express');
 const router = express.Router();
-
-// const users = {
-//   "bobby": "meowmeow",
-//   "ricky": "notsogood"
-// };
-
-const users = [
-  {
-    id: 100,
-    username: "bobby",
-    password: "meowmeow"
-  },
-  {
-    id: 101,
-    username: "ricky",
-    password: "notsogood"
-  }
-]
+const users = require('../config/users.json');
 
 /* Get users */
 router.get('/', (req, res, next) => {
