@@ -1,5 +1,6 @@
 const express = require('express');
 const router = express.Router();
+const getUser = require('../helpers/getuser');
 
 const response = {
   key: 'value'
@@ -17,14 +18,18 @@ router.post('/upload', async (req, res) => {
       if(!req.files) {
         res.send({
           status: false,
-          message: 'No file uploaded'
+          message: 'No file to upload'
         });
       } else {
-        //use name of form-data 'file' to fetch uploaded file
         const file = req.files.file;
-        
-        //use mv() method to place the file to uploads folder
-        file.mv('./uploads/' + file.name);
+        const username = req.session.userName;
+        const {user_id, group_id} = getUser(username);
+
+        console.log('File belongs to user: ' + username + 
+                    '| id: ' + user_id + 
+                    '| group_id: ' + group_id);
+
+        file.mv(`./documents/${group_id}/` + file.name);
 
         res.send({
           status: true,
@@ -40,7 +45,7 @@ router.post('/upload', async (req, res) => {
       res.status(500).send(err);
     }
   } else {
-    res.status(401).send("You are cheating!");
+    res.status(401).send("User not logged in!");
   }
 });
 

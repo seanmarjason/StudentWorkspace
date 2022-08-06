@@ -32,7 +32,7 @@ app.use(session({
   name: "session-id",
   saveUninitialized: false,
   resave: false,
-  cookie: {expires: 60000, domain: "localhost"}
+  cookie: {expires: 600000, domain: "localhost"}
 }));
 
 app.use('/', indexRouter);
@@ -53,6 +53,12 @@ app.use((err, req, res, next) => {
   // render the error page
   res.status(err.status || 500);
   res.render('error');
+});
+
+// temporary
+process.on('SIGINT', function() {
+  console.log("Caught interrupt signal");
+  process.exit();
 });
 
 module.exports = app;
