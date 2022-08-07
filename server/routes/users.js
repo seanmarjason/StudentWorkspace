@@ -1,23 +1,6 @@
 const express = require('express');
 const router = express.Router();
-
-// const users = {
-//   "bobby": "meowmeow",
-//   "ricky": "notsogood"
-// };
-
-const users = [
-  {
-    id: 100,
-    username: "bobby",
-    password: "meowmeow"
-  },
-  {
-    id: 101,
-    username: "ricky",
-    password: "notsogood"
-  }
-]
+const getUser = require('../helpers/getuser');
 
 /* Get users */
 router.get('/', (req, res, next) => {
@@ -27,9 +10,8 @@ router.get('/', (req, res, next) => {
 /* Login */
 router.post('/login',
   (req, res, next) => {
-    const { username, password } = req.body;
-
-    const userData = users.find((user) => user.username === username);
+    const {username, password} = req.body;
+    const userData = getUser(username);
 
     // User not found
     if (!userData) {

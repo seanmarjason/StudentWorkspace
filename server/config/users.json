@@ -1,0 +1,54 @@
+[
+  {
+    "user_id": 100,
+    "username": "bobby",
+    "password": "meowmeow"
+  },
+  {
+    "user_id": 101,
+    "username": "ricky",
+    "password": "notsogood"
+  },
+  {
+    "user_id": 102,
+    "group_id": 100,
+    "username": "user1",
+    "password": "notsogood"
+  },
+  {
+    "user_id": 103,
+    "group_id": 100,
+    "username": "user2",
+    "password": "notsogood"
+  },
+  {
+    "user_id": 104,
+    "group_id": 100,
+    "username": "user3",
+    "password": "notsogood"
+  },
+  {
+    "user_id": 105,
+    "group_id": 101,
+    "username": "user4",
+    "password": "notsogood"
+  },
+  {
+    "user_id": 106,
+    "group_id": 101,
+    "username": "user5",
+    "password": "notsogood"
+  },
+  {
+    "user_id": 107,
+    "group_id": 101,
+    "username": "user6",
+    "password": "notsogood"
+  },
+  {
+    "user_id": 108,
+    "group_id": 101,
+    "username": "user7",
+    "password": "notsogood"
+  }
+]
