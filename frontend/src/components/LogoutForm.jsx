@@ -1,4 +1,5 @@
 import axios from 'axios';
+import './LogoutForm.css';
 
 // Logout form handler
 function handleLogoutSubmit(event, callback) {
@@ -18,10 +19,12 @@ function handleLogoutSubmit(event, callback) {
 }
 
 const LogoutForm = ({ callback }) =>
+<div className="logoutForm">
   <form onSubmit={(event) => handleLogoutSubmit(event, callback)}>
   <div className="button-container">
     <button type="submit">Logout</button>
   </div>
   </form>  
+</div>
 
 export { LogoutForm }

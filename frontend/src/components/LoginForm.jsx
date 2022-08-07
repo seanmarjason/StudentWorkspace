@@ -1,5 +1,6 @@
 import {useState} from 'react';
 import axios from 'axios';
+import './LoginForm.css';
 
 // Generate JSX code for error message
 const ErrorMessage = (name, errors) => {
@@ -42,7 +43,7 @@ const LoginForm = ({ callback }) => {
   const [errorMessages, setErrorMessages] = useState({});
 
   return (
-    <div className="form">
+    <div className="login-form form">
       <form onSubmit={(event) => handleLoginSubmit(event, callback)}>
         <div className="title">Login</div>
         <div className="input-container">
