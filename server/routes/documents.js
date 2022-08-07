@@ -2,20 +2,30 @@ const express = require('express');
 const router = express.Router();
 const getUser = require('../helpers/getuser');
 
-const response = {
-  key: 'value'
-}
+/* Download document. */
+router.get('/download/:fileName', (req, res) => {
+  if (req.session.loggedIn) {
+    const username = req.session.userName;
+    const {user_id, group_id} = getUser(username);
+    const file = `documents/${group_id}/${req.params.fileName}`;
 
-/* Placeholder to download document. */
-router.get('/download', (req, res, next) => {
-  res.json(response);
+    res.download(file, (err) => {
+      if (err) {
+        console.log("Error : ", err);
+        res.status(404).end()
+      }
+    });
+  } else {
+    res.status(401).send("User not logged in!");
+  }
+
 });
 
 /* Upload document. */
 router.post('/upload', async (req, res) => {
-  if(req.session.loggedIn) {
+  if (req.session.loggedIn) {
     try {
-      if(!req.files) {
+      if (!req.files) {
         res.send({
           status: false,
           message: 'No file to upload'
