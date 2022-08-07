@@ -34,7 +34,7 @@
 						{
 							"key": "file",
 							"type": "file",
-							"src": "/Users/dsimanis/dev/avatar.jpg"
+							"src": "/Users/dsimanis/Pictures/IMG_0051.png"
 						}
 					]
 				},
@@ -74,12 +74,12 @@
 					"formdata": [
 						{
 							"key": "username",
-							"value": "bobby",
+							"value": "user1",
 							"type": "text"
 						},
 						{
 							"key": "password",
-							"value": "meowmeow",
+							"value": "notsogood",
 							"type": "text"
 						}
 					]
@@ -150,6 +150,33 @@
 				}
 			},
 			"response": []
+		},
+		{
+			"name": "Download",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Cookie",
+						"value": "session-id={{Session-ID}}",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:3001/documents/download/{{fileName}}",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3001",
+					"path": [
+						"documents",
+						"download",
+						"{{fileName}}"
+					]
+				}
+			},
+			"response": []
 		}
 	],
 	"event": [
@@ -170,6 +197,18 @@
 					""
 				]
 			}
+		}
+	],
+	"variable": [
+		{
+			"key": "fileName",
+			"value": "IMG_0051.png",
+			"type": "string"
+		},
+		{
+			"key": "basePath",
+			"value": "localhost:3001",
+			"type": "string"
 		}
 	]
 }
