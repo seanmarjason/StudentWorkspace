@@ -12,8 +12,24 @@ on:
       - master
 
 jobs:
-  build_and_deploy_job:
-    if: github.event_name == 'push' || (github.event_name == 'pull_request' && github.event.action != 'closed')
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Set up Node.js version
+        uses: actions/setup-node@v1
+        with:
+          node-version: '16.x'
+
+      - name: npm install, build, and test
+        run: |
+
+          npm install --workspace=frontend
+          npm run frontend-build
+
+  deploy:
+    if: github.event.pull_request.merged == true
     runs-on: ubuntu-latest
     name: Build and Deploy Job
     steps:
