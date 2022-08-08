@@ -6,7 +6,7 @@ const getUser = require('../helpers/getuser');
 router.get('/download/:fileName', (req, res) => {
   if (req.session.loggedIn) {
     const username = req.session.userName;
-    const {user_id, group_id} = getUser(username);
+    const {group_id} = getUser(username);
     const file = `documents/${group_id}/${req.params.fileName}`;
 
     res.download(file, (err) => {
@@ -15,6 +15,7 @@ router.get('/download/:fileName', (req, res) => {
         res.status(404).end()
       }
     });
+
   } else {
     res.status(401).send("User not logged in!");
   }
@@ -51,9 +52,11 @@ router.post('/upload', async (req, res) => {
           }
         });
       }
+
     } catch (err) {
       res.status(500).send(err);
     }
+
   } else {
     res.status(401).send("User not logged in!");
   }

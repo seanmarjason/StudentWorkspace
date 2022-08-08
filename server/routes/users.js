@@ -1,15 +1,9 @@
 const express = require('express');
 const router = express.Router();
-const getUser = require('../helpers/getuser');
-
-/* Get users */
-router.get('/', (req, res, next) => {
-  res.send('Endpoint placegolder to get active users');
-});
+const {getUser, getUsers} = require('../helpers/getuser');
 
 /* Login */
-router.post('/login',
-  (req, res, next) => {
+router.post('/login', (req, res, next) => {
     const {username, password} = req.body;
     const userData = getUser(username);
 
@@ -29,19 +23,29 @@ router.post('/login',
     res.locals.userName = username;
     next();
   },
-
   (req, res) => {
     req.session.loggedIn = true;
     req.session.userName = res.locals.userName;
     console.log(req.session);
     res.send('Login successful!');
   }
+
 );
 
 /* Logout */
 router.delete('/logout', (req, res) => {
   req.session.destroy();
   res.send('Logout successful!');
+
+});
+
+/* Get users */
+router.get('/', (req, res) => {
+  const username = req.session.userName;
+  const {group_id} = getUser(username);
+
+  res.send(getUsers(group_id));
+
 });
 
 module.exports = router;
