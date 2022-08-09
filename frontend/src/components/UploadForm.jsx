@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { useOutsideClick } from '../hooks/useOutsideClick';
 import './UploadForm.css';
 
 function handleFileChange(event, setFile) {
@@ -25,18 +26,29 @@ function handleUploadSubmit(event, file) {
     });
 }
 
-const UploadForm = ({file, setFile, callback}) => (
-  <div className="form uploadForm">
-    <form onSubmit={(event) => handleUploadSubmit(event, file)}>
-      <div className="title">File Upload</div>
-      <div className="button-container">
-        <input type="file" onChange={(event) => handleFileChange(event, setFile)}/>
-        <button type="submit">Upload</button>
-        <button onClick={() => callback(false)}>Cancel</button>
-      </div>
-    </form>
-    <hr></hr>
-  </div>
-);
+const UploadForm = ({file, setFile, callback}) => {
+
+  const handleClickOutside = () => {
+    console.log('clicked!')
+    callback(false);
+  };
+
+  const ref = useOutsideClick(handleClickOutside);
+
+  return (
+    <div ref={ref} className="form uploadForm">
+      <form onSubmit={(event) => handleUploadSubmit(event, file)}>
+        <div className="title">File Upload</div>
+        <div className="button-container">
+          <input type="file" onChange={(event) => handleFileChange(event, setFile)}/>
+          <button type="submit">Upload</button>
+          <button onClick={() => callback(false)}>Cancel</button>
+          <span className="closeButton" onClick={() => callback(false)}>&#x2715;</span>
+        </div>
+      </form>
+      <hr></hr>
+    </div>
+    )
+  };
 
 export { UploadForm }

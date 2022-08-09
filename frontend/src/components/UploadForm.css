@@ -12,3 +12,15 @@
   display: flex;
   justify-content: center;
 }
+
+.closeButton {
+  cursor: pointer;
+  position: absolute;
+  top: 0%;
+  right: 0%;
+  padding: 12px 16px;
+}
+
+.closeButton:hover {
+  background: rgb(210, 210, 210);
+}

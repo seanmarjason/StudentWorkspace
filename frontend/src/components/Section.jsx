@@ -24,8 +24,7 @@ const Section = ({ sectionData }) => {
         >
           Add Artefact
         </button>
-      </div>
-      {
+        {
         showUploadForm && 
           <UploadForm                 
             file={file} 
@@ -33,6 +32,7 @@ const Section = ({ sectionData }) => {
             callback={setShowUploadForm}
           />
       }
+      </div>
     </div>
   )
 };
