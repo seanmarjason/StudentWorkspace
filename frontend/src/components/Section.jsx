@@ -1,11 +1,18 @@
 import { useState } from 'react';
 import './Section.css'
 import { UploadForm } from './UploadForm';
+import { Artefact } from './Artefact';
 
 const Section = ({ sectionData }) => {
 
   const [showUploadForm, setShowUploadForm] = useState(false);
   const [file, setFile] = useState();
+  const [artefact, setArtefact] = useState(null);
+
+  const handleArtefactClick = (event) => {
+    const artefact = JSON.parse(event.target.value);
+    setArtefact(artefact)
+  }
 
   return (
     <div className="section">
@@ -13,9 +20,13 @@ const Section = ({ sectionData }) => {
       <div className="sectionArtefacts">
         {
           sectionData.artefacts.map(artefact => 
-            <div className="artefact">
-              <p>{artefact.title}</p>
-            </div>
+              <button 
+                className="artefact"
+                value={JSON.stringify(artefact)}
+                onClick={(event) => handleArtefactClick(event)}
+              >
+                {artefact.title}
+              </button>
           )
         }
         <button 
@@ -31,7 +42,14 @@ const Section = ({ sectionData }) => {
             setFile={setFile}  
             callback={setShowUploadForm}
           />
-      }
+        }
+        {
+        artefact &&
+          <Artefact                 
+            artefact={artefact}
+            callback={setArtefact}
+          />
+        }
       </div>
     </div>
   )

@@ -29,7 +29,6 @@ function handleUploadSubmit(event, file) {
 const UploadForm = ({file, setFile, callback}) => {
 
   const handleClickOutside = () => {
-    console.log('clicked!')
     callback(false);
   };
 

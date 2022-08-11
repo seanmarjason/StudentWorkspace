@@ -1,0 +1,10 @@
+.artefactOverlay {
+  z-index: 100;
+  position: fixed;
+  left: 50%;
+  transform: translate(-50%, 0);
+  background-color: white;
+  box-shadow: 0 0 25px rgb(0 0 0 / 20%);
+  padding: 50px;
+}
+
