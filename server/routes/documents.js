@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const fs = require('fs');
-const getUser = require('../helpers/getuser');
+const { getUser } = require('../helpers/getuser');
 
 /* Download document. */
 router.get('/download/:fileName', (req, res) => {
@@ -25,7 +25,7 @@ router.get('/download/:fileName', (req, res) => {
 
 /* Upload document. */
 router.post('/upload', async (req, res) => {
-  // if (req.session.loggedIn) {
+  if (req.session.loggedIn) {
     try {
       if (!req.files) {
         res.send({
@@ -34,10 +34,10 @@ router.post('/upload', async (req, res) => {
         });
       } else {
         const file = req.files.file;
-        // const username = req.session.userName;
-        // const {user_id, group_id} = getUser(username);
+        const username = req.session.userName;
 
-        const group_id = '100'; // TODO: Remove hardcoded group_id
+        const { group_id } = getUser(username);
+
         const section = req.body.section;
 
         file.mv(`./uploads/${group_id}/${section}/` + file.name);
@@ -57,15 +57,14 @@ router.post('/upload', async (req, res) => {
       res.status(500).send(err);
     }
 
-  // } else {
-  //   res.status(401).send("User not logged in!");
-  // }
+  } else {
+    res.status(401).send("User not logged in!");
+  }
 });
 
 /* Get list of documents. */
 router.get('/list/:group_id/:sectionName', (req, res) => {
-  // if (req.session.loggedIn) {
-    // const username = req.session.userName;
+  if (req.session.loggedIn) {
     const group_id = req.params.group_id;
     const sectionName = req.params.sectionName;
 
@@ -86,9 +85,9 @@ router.get('/list/:group_id/:sectionName', (req, res) => {
 
     res.status(200).send({ documents: list });
 
-  // } else {
-  //   res.status(401).send("User not logged in!");
-  // }
+  } else {
+    res.status(401).send("User not logged in!");
+  }
 
 });
 

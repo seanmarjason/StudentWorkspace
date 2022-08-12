@@ -4,7 +4,7 @@ const { getWorkspace } = require('../helpers/getWorkspace');
 
 /* Get workspace details. */
 router.get('/:groupId', (req, res) => {
-  // if (req.session.loggedIn) {
+  if (req.session.loggedIn) {
     const groupId = req.params.groupId;
 
     const workspaceData = getWorkspace(groupId);
@@ -16,10 +16,10 @@ router.get('/:groupId', (req, res) => {
 
     res.status(200).send(workspaceData);
 
-  // } else {
-  //   console.log("Error: User not logged in")
-  //   res.status(401).send("User not logged in!");
-  // }
+  } else {
+    console.log("Error: User not logged in")
+    res.status(401).send("User not logged in!");
+  }
 
 });
 
