@@ -12,7 +12,7 @@ const Artefact = ({ artefact, callback }) => {
   return (
     <div ref={ref} className="artefactOverlay">
       <p>Workspace Artefact</p>
-      <p>for artefact: {artefact.title}</p>
+      <p>for artefact: {artefact}</p>
       <span className="closeButton" onClick={() => callback(null)}>&#x2715;</span>
     </div>
   )

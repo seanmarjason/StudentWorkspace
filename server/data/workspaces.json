@@ -4,9 +4,9 @@
     "name": "Test Workspace",
     "groupReference": "Group ABC",
     "groupMembers": [],
-    "sections": {
-      "research": [],
-      "deliverables": []
-    }
+    "sections": [
+      "research",
+      "deliverables"
+    ]
   }
 ]

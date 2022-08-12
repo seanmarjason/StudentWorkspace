@@ -25,10 +25,10 @@ const Workspace = ({ groupId }) => {
             <h2>{workspaceData.groupReference}</h2>
             <div className="workspaceSections">
               {
-                Object.entries(workspaceData.sections).map(([key, value]) =>
+                workspaceData.sections.map((section) =>
                   <Section
-                    sectionName={key}
-                    sectionData={value}
+                    groupId={groupId}
+                    sectionName={section}
                   />
                 )
               }
