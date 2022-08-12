@@ -16,8 +16,7 @@ const Section = ({ groupId, sectionName }) => {
     axios.get(url)
       .then(response => setSectionData(response.data.documents))
       .catch(error => console.log(`Error: ${error}`))
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [groupId, sectionName, showUploadForm]); // TODO: remove dependency on showUploadForm
 
   const handleArtefactClick = (event) => {
     const artefact = JSON.parse(event.target.value);
