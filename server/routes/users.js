@@ -6,6 +6,7 @@ const {getUser, getUsers} = require('../helpers/getuser');
 router.post('/login', (req, res, next) => {
     const {username, password} = req.body;
     const userData = getUser(username);
+    const { group_id } = userData;
 
     // User not found
     if (!userData) {
@@ -21,13 +22,14 @@ router.post('/login', (req, res, next) => {
     }
 
     res.locals.userName = username;
+    res.locals.group_id = group_id;
     next();
   },
   (req, res) => {
     req.session.loggedIn = true;
     req.session.userName = res.locals.userName;
     console.log(req.session);
-    res.send('Login successful!');
+    res.send({ status: 'Login successful!', group_id: res.locals.group_id });
   }
 
 );

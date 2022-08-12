@@ -7,19 +7,18 @@ import { Workspace } from './components/Workspace';
 function App() {
   //states to support login
   const [isLoginSuccess, setIsLoginSuccess] = useState(false);
+  const [groupId, setGroupId] = useState(false);
   
-  const group_id = 100; // TODO: Remove hardcoded group_id
-
   return (
     <div className="app">
         {
           isLoginSuccess 
           ? 
             <>
-              <Workspace groupId={group_id}/>
+              <Workspace groupId={groupId}/>
               <LogoutForm callback={setIsLoginSuccess} />
             </>
-          : <LoginForm callback={setIsLoginSuccess} />
+          : <LoginForm setIsLoginSuccess={setIsLoginSuccess} setGroupId={setGroupId} />
         }
     </div>
   );
