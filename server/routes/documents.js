@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const getUser = require('../helpers/getuser');
+const { addDocument } = require('../helpers/addDocument');
 
 /* Download document. */
 router.get('/download/:fileName', (req, res) => {
@@ -24,7 +25,7 @@ router.get('/download/:fileName', (req, res) => {
 
 /* Upload document. */
 router.post('/upload', async (req, res) => {
-  if (req.session.loggedIn) {
+  // if (req.session.loggedIn) {
     try {
       if (!req.files) {
         res.send({
@@ -33,14 +34,14 @@ router.post('/upload', async (req, res) => {
         });
       } else {
         const file = req.files.file;
-        const username = req.session.userName;
-        const {user_id, group_id} = getUser(username);
+        // const username = req.session.userName;
+        // const {user_id, group_id} = getUser(username);
 
-        console.log('File belongs to user: ' + username + 
-                    '| id: ' + user_id + 
-                    '| group_id: ' + group_id);
+        const section = req.body.section;
 
-        file.mv(`./documents/${group_id}/` + file.name);
+        const group_id = '100'; // TODO: Remove hardcoded group_id
+
+        addDocument(file, group_id, section);
 
         res.send({
           status: true,
@@ -57,9 +58,9 @@ router.post('/upload', async (req, res) => {
       res.status(500).send(err);
     }
 
-  } else {
-    res.status(401).send("User not logged in!");
-  }
+  // } else {
+  //   res.status(401).send("User not logged in!");
+  // }
 });
 
 module.exports = router;

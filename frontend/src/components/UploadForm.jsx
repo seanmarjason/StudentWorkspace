@@ -6,13 +6,14 @@ function handleFileChange(event, setFile) {
   setFile(event.target.files[0]);
 }
 
-function handleUploadSubmit(event, file) {
+function handleUploadSubmit(event, file, section) {
   event.preventDefault()
   const url = 'http://localhost:3000/documents/upload';
   const formData = new FormData();
   
   formData.append('file', file);
   formData.append('fileName', file.name);
+  formData.append('section', section);
 
   const config = {
     headers: {
@@ -26,7 +27,7 @@ function handleUploadSubmit(event, file) {
     });
 }
 
-const UploadForm = ({file, setFile, callback}) => {
+const UploadForm = ({file, setFile, section, callback}) => {
 
   const handleClickOutside = () => {
     callback(false);
@@ -36,7 +37,7 @@ const UploadForm = ({file, setFile, callback}) => {
 
   return (
     <div ref={ref} className="form uploadForm">
-      <form onSubmit={(event) => handleUploadSubmit(event, file)}>
+      <form onSubmit={(event) => handleUploadSubmit(event, file, section)}>
         <div className="title">File Upload</div>
         <div className="button-container">
           <input type="file" onChange={(event) => handleFileChange(event, setFile)}/>

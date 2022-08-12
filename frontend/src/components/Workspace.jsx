@@ -3,12 +3,12 @@ import axios from 'axios';
 import './Workspace.css';
 import { Section } from './Section';
 
-const Workspace = ({ workspaceId }) => {
+const Workspace = ({ groupId }) => {
 
   const [workspaceData, setWorkspaceData] = useState(null);
 
   useEffect(() => {
-    const url = `http://localhost:3000/workspaces/${workspaceId}`
+    const url = `http://localhost:3000/workspaces/${groupId.toString()}`
 
     axios.get(url)
       .then(response => setWorkspaceData(response.data))
@@ -24,10 +24,11 @@ const Workspace = ({ workspaceId }) => {
             <h1>{workspaceData.name}</h1>
             <h2>{workspaceData.groupReference}</h2>
             <div className="workspaceSections">
-              { 
-                workspaceData.sections.map(section => 
-                  <Section 
-                    sectionData={section}
+              {
+                Object.entries(workspaceData.sections).map(([key, value]) =>
+                  <Section
+                    sectionName={key}
+                    sectionData={value}
                   />
                 )
               }

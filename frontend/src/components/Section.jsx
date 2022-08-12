@@ -3,7 +3,7 @@ import './Section.css'
 import { UploadForm } from './UploadForm';
 import { Artefact } from './Artefact';
 
-const Section = ({ sectionData }) => {
+const Section = ({ sectionName, sectionData }) => {
 
   const [showUploadForm, setShowUploadForm] = useState(false);
   const [file, setFile] = useState();
@@ -16,11 +16,11 @@ const Section = ({ sectionData }) => {
 
   return (
     <div className="section">
-      <h3>{sectionData.name}</h3>
+      <h3>{sectionName}</h3>
       <div className="sectionArtefacts">
         {
-          sectionData.artefacts.map(artefact => 
-              <button 
+          sectionData.map(artefact => 
+              <button
                 className="artefact"
                 value={JSON.stringify(artefact)}
                 onClick={(event) => handleArtefactClick(event)}
@@ -40,6 +40,7 @@ const Section = ({ sectionData }) => {
           <UploadForm                 
             file={file} 
             setFile={setFile}  
+            section={sectionName}
             callback={setShowUploadForm}
           />
         }

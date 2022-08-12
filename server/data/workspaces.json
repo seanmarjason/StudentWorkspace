@@ -1,21 +1,12 @@
 [
   {
-    "id": "testWorkspace",
+    "group_id": "100",
     "name": "Test Workspace",
-    "group_id": 100,
     "groupReference": "Group ABC",
     "groupMembers": [],
-    "sections": [
-      { 
-        "name": "research",
-        "artefacts": [
-        ] 
-      },
-      { 
-        "name": "deliverables",
-        "artefacts": [
-        ] 
-      }
-    ]
+    "sections": {
+      "research": [],
+      "deliverables": []
+    }
   }
 ]

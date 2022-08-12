@@ -6,6 +6,8 @@ var logger = require('morgan');
 const session = require('express-session');
 const fileUpload = require('express-fileupload');
 const cors = require('cors')
+var bodyParser = require('body-parser');
+
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 var documentsRouter = require('./routes/documents');
@@ -23,6 +25,8 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(fileUpload({ createParentPath: true }));
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
 
 // add CORS policy that allows all crossdomain requests for now
 app.use(cors({ origin: '*' }));

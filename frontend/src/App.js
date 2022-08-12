@@ -7,31 +7,8 @@ import { Workspace } from './components/Workspace';
 function App() {
   //states to support login
   const [isLoginSuccess, setIsLoginSuccess] = useState(false);
-
-  // const testWorkspace = {
-  //   id: 'testWorkspace',
-  //   name: 'Test Workspace',
-  //   groupReference: 'Group ABC',
-  //   groupMembers: [],
-  //   sections: [
-  //     { 
-  //       name: 'research',
-  //       artefacts: [
-  //         { title: 'doc1', type: 'document', link: ''}, 
-  //         { title: 'doc2', type: 'document', link: ''}, 
-  //       ] 
-  //     },
-  //     { 
-  //       name: 'deliverables',
-  //       artefacts: [
-  //         { title: 'doc1', type: 'document', link: ''}, 
-  //         { title: 'doc2', type: 'document', link: ''}, 
-  //       ] 
-  //     },
-  //   ]
-  // }
   
-  const workspace = 'testWorkspace'
+  const group_id = 100; // TODO: Remove hardcoded group_id
 
   return (
     <div className="app">
@@ -39,7 +16,7 @@ function App() {
           isLoginSuccess 
           ? 
             <>
-              <Workspace workspaceId={workspace}/>
+              <Workspace groupId={group_id}/>
               <LogoutForm callback={setIsLoginSuccess} />
             </>
           : <LoginForm callback={setIsLoginSuccess} />
