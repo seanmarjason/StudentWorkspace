@@ -9,6 +9,7 @@ const cors = require('cors')
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 var documentsRouter = require('./routes/documents');
+var workspacesRouter = require('./routes/workspaces');
 
 var app = express();
 
@@ -38,6 +39,7 @@ app.use(session({
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/documents', documentsRouter);
+app.use('/workspaces', workspacesRouter);
 
 // catch 404 and forward to error handler
 app.use((req, res, next) => {

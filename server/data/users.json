@@ -1,6 +1,7 @@
 [
   {
     "user_id": 100,
+    "group_id": 100,
     "username": "bobby",
     "password": "meowmeow"
   },
