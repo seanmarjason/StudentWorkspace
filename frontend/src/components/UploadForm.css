@@ -1,0 +1,26 @@
+.uploadForm {
+  z-index: 100;
+  position: fixed;
+  left: 50%;
+  transform: translate(-50%, 0);
+  background-color: white;
+  box-shadow: 0 0 25px rgb(0 0 0 / 20%);
+  padding: 50px;
+}
+
+.button-container {
+  display: flex;
+  justify-content: center;
+}
+
+.closeButton {
+  cursor: pointer;
+  position: absolute;
+  top: 0%;
+  right: 0%;
+  padding: 12px 16px;
+}
+
+.closeButton:hover {
+  background: rgb(210, 210, 210);
+}

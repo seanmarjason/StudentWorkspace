@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
-const getUser = require('../helpers/getuser');
+const fs = require('fs');
+const { getUser } = require('../helpers/getuser');
 
 /* Download document. */
 router.get('/download/:fileName', (req, res) => {
@@ -34,13 +35,12 @@ router.post('/upload', async (req, res) => {
       } else {
         const file = req.files.file;
         const username = req.session.userName;
-        const {user_id, group_id} = getUser(username);
 
-        console.log('File belongs to user: ' + username + 
-                    '| id: ' + user_id + 
-                    '| group_id: ' + group_id);
+        const { group_id } = getUser(username);
 
-        file.mv(`./documents/${group_id}/` + file.name);
+        const section = req.body.section;
+
+        file.mv(`./uploads/${group_id}/${section}/` + file.name);
 
         res.send({
           status: true,
@@ -60,6 +60,35 @@ router.post('/upload', async (req, res) => {
   } else {
     res.status(401).send("User not logged in!");
   }
+});
+
+/* Get list of documents. */
+router.get('/list/:group_id/:sectionName', (req, res) => {
+  if (req.session.loggedIn) {
+    const group_id = req.params.group_id;
+    const sectionName = req.params.sectionName;
+
+    const folder = `./uploads/${group_id}/${sectionName}/`
+
+    let files;
+
+    if (fs.existsSync(folder)) {
+      files = fs.readdirSync(
+        folder,
+        { withFileTypes: true },
+      );
+    } else {
+      files = []
+    }
+
+    const list = files.map(file => file.name);
+
+    res.status(200).send({ documents: list });
+
+  } else {
+    res.status(401).send("User not logged in!");
+  }
+
 });
 
 module.exports = router;

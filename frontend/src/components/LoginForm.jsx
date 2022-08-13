@@ -1,5 +1,6 @@
 import {useState} from 'react';
 import axios from 'axios';
+import './LoginForm.css';
 
 // Generate JSX code for error message
 const ErrorMessage = (name, errors) => {
@@ -9,7 +10,7 @@ const ErrorMessage = (name, errors) => {
 }
 
 // Login form handler
-const handleLoginSubmit = (event, callback) => {
+const handleLoginSubmit = (event, setIsLoginSuccess, setGroupId) => {
   event.preventDefault();
   const url = 'http://localhost:3000/users/login';
   var { username, password } = document.forms[0];
@@ -26,9 +27,10 @@ const handleLoginSubmit = (event, callback) => {
 
   axios.post(url, formData, config)
     .then((response) => {
-      if (response.status === 200 && response.data === 'Login successful!') {
-        console.log('Login successful!');
-        callback(true);
+      if (response.status === 200 && response.data.status === 'Login successful!') {
+        console.log('Login successful! Group ID is:', response.data.group_id);
+        setIsLoginSuccess(true);
+        setGroupId(response.data.group_id);
       }
     })
     .catch((error) => {
@@ -37,13 +39,13 @@ const handleLoginSubmit = (event, callback) => {
 }
 
 
-const LoginForm = ({ callback }) => {
+const LoginForm = ({ setIsLoginSuccess, setGroupId }) => {
   // eslint-disable-next-line no-unused-vars
   const [errorMessages, setErrorMessages] = useState({});
 
   return (
-    <div className="form">
-      <form onSubmit={(event) => handleLoginSubmit(event, callback)}>
+    <div className="login-form form">
+      <form onSubmit={(event) => handleLoginSubmit(event, setIsLoginSuccess, setGroupId)}>
         <div className="title">Login</div>
         <div className="input-container">
           <label>Username </label>

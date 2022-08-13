@@ -1,40 +1,55 @@
+import { useState } from 'react';
 import axios from 'axios';
+import { useOutsideClick } from '../hooks/useOutsideClick';
+import './UploadForm.css';
 
-function handleFileChange(event, setFile) {
-  setFile(event.target.files[0]);
-}
+const UploadForm = ({section, callback}) => {
 
-function handleUploadSubmit(event, file) {
-  event.preventDefault()
-  const url = 'http://localhost:3000/documents/upload';
-  const formData = new FormData();
+  const [file, setFile] = useState();
+
+  function handleUploadSubmit(event, file, section) {
+    event.preventDefault()
+    const url = 'http://localhost:3000/documents/upload';
+    const formData = new FormData();
+    
+    formData.append('file', file);
+    formData.append('fileName', file.name);
+    formData.append('section', section);
   
-  formData.append('file', file);
-  formData.append('fileName', file.name);
+    const config = {
+      headers: {
+        'content-type': 'multipart/form-data'
+      }
+    };
+  
+    axios.post(url, formData, config)
+      .then((response) => {
+        console.log(response.data);
+      });
 
-  const config = {
-    headers: {
-      'content-type': 'multipart/form-data'
-    }
+    setFile(null)
+    callback(false)
+  }
+
+  const handleClickOutside = () => {
+    callback(false);
   };
 
-  axios.post(url, formData, config)
-    .then((response) => {
-      console.log(response.data);
-    });
-}
+  const ref = useOutsideClick(handleClickOutside);
 
-const UploadForm = ({file, setFile}) => (
-  <div className="form">
-    <form onSubmit={(event) => handleUploadSubmit(event, file)}>
-      <div className="title">File Upload</div>
-      <div className="button-container">
-        <input type="file" onChange={(event) => handleFileChange(event, setFile)}/>
-        <button type="submit">Upload</button>
-      </div>
-    </form>
-    <hr></hr>
-  </div>
-);
+  return (
+    <div ref={ref} className="form uploadForm">
+      <form onSubmit={(event) => handleUploadSubmit(event, file, section)}>
+        <div className="title">File Upload</div>
+        <div className="button-container">
+          <input type="file" onChange={(event) => setFile(event.target.files[0])}/>
+          <button type="submit">Upload</button>
+          <span className="closeButton" onClick={() => callback(false)}>&#x2715;</span>
+        </div>
+      </form>
+      <hr></hr>
+    </div>
+    )
+  };
 
 export { UploadForm }

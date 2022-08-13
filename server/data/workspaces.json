@@ -1,0 +1,22 @@
+[
+  {
+    "group_id": "100",
+    "name": "Test Workspace 1",
+    "groupReference": "Group ABC",
+    "groupMembers": [],
+    "sections": [
+      "research",
+      "deliverables"
+    ]
+  },
+  {
+    "group_id": "101",
+    "name": "Test Workspace 2",
+    "groupReference": "Group XYZ",
+    "groupMembers": [],
+    "sections": [
+      "research",
+      "deliverables"
+    ]
+  }
+]

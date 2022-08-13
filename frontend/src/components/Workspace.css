@@ -1,0 +1,17 @@
+.workspace {
+  display: flex;
+  flex-wrap: wrap;
+  align-content: flex-start;
+  height: 90vh;
+}
+
+.workspace h1 {
+  width: 100vw;
+  text-align: center;
+}
+
+.workspace h2 {
+  width: 100vw;
+  text-align: center;
+  padding-bottom: 5vh;
+}

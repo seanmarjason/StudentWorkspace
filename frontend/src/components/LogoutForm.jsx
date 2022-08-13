@@ -1,7 +1,8 @@
 import axios from 'axios';
+import './LogoutForm.css';
 
 // Logout form handler
-function handleLogoutSubmit(event, callback) {
+function handleLogoutSubmit(event, setIsLoginSuccess) {
   event.preventDefault()
   const url = 'http://localhost:3000/users/logout';
 
@@ -9,7 +10,7 @@ function handleLogoutSubmit(event, callback) {
   .then((response) => {
     if (response.status === 200 && response.data === 'Logout successful!') {
       console.log('Logout successful!');
-      callback(false);
+      setIsLoginSuccess(false);
     }
   })
   .catch((error) => {
@@ -17,11 +18,13 @@ function handleLogoutSubmit(event, callback) {
   });
 }
 
-const LogoutForm = ({ callback }) =>
-  <form onSubmit={(event) => handleLogoutSubmit(event, callback)}>
+const LogoutForm = ({ setIsLoginSuccess }) =>
+<div className="logoutForm">
+  <form onSubmit={(event) => handleLogoutSubmit(event, setIsLoginSuccess)}>
   <div className="button-container">
     <button type="submit">Logout</button>
   </div>
   </form>  
+</div>
 
 export { LogoutForm }
