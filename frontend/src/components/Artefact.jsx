@@ -1,10 +1,10 @@
 import { useOutsideClick } from '../hooks/useOutsideClick';
 import './Artefact.css';
 
-const Artefact = ({ artefact, callback }) => {
+const Artefact = ({ artefact, setArtefact }) => {
 
   const handleClickOutside = () => {
-    callback(false);
+    setArtefact(false);
   };
 
   const ref = useOutsideClick(handleClickOutside);
@@ -13,7 +13,7 @@ const Artefact = ({ artefact, callback }) => {
     <div ref={ref} className="artefactOverlay">
       <p>Workspace Artefact</p>
       <p>for artefact: {artefact}</p>
-      <span className="closeButton" onClick={() => callback(null)}>&#x2715;</span>
+      <span className="closeButton" onClick={() => setArtefact(null)}>&#x2715;</span>
     </div>
   )
 }

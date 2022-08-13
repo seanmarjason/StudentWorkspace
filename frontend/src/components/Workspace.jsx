@@ -13,8 +13,7 @@ const Workspace = ({ groupId }) => {
     axios.get(url)
       .then(response => setWorkspaceData(response.data))
       .catch(error => console.log(`Error: ${error}`))
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [groupId]);
   
   return (
     <div className="workspace">

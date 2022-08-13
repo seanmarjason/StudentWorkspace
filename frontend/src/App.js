@@ -16,7 +16,7 @@ function App() {
           ? 
             <>
               <Workspace groupId={groupId}/>
-              <LogoutForm callback={setIsLoginSuccess} />
+              <LogoutForm setIsLoginSuccess={setIsLoginSuccess} />
             </>
           : <LoginForm setIsLoginSuccess={setIsLoginSuccess} setGroupId={setGroupId} />
         }

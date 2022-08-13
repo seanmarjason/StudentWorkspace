@@ -7,8 +7,10 @@
 }
 
 .sectionArtefacts {
-  display: block;
+  display: flex;
+  flex-wrap: wrap;
   height: 100%;
+  width: 95%;
   position: relative;
 }
 
@@ -28,6 +30,7 @@
   height: 10vh;
   width: 8vh;
   margin: 10px;
+  overflow: hidden;
 }
 
 .artefact:hover {

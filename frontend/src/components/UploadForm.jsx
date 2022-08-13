@@ -44,7 +44,6 @@ const UploadForm = ({section, callback}) => {
         <div className="button-container">
           <input type="file" onChange={(event) => setFile(event.target.files[0])}/>
           <button type="submit">Upload</button>
-          <button onClick={() => callback(false)}>Cancel</button>
           <span className="closeButton" onClick={() => callback(false)}>&#x2715;</span>
         </div>
       </form>

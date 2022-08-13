@@ -16,7 +16,7 @@ const Section = ({ groupId, sectionName }) => {
     axios.get(url)
       .then(response => setSectionData(response.data.documents))
       .catch(error => console.log(`Error: ${error}`))
-  }, [groupId, sectionName, showUploadForm]); // TODO: remove dependency on showUploadForm
+  }, [groupId, sectionName, showUploadForm]);
 
   const handleArtefactClick = (event) => {
     const artefact = JSON.parse(event.target.value);
@@ -55,7 +55,7 @@ const Section = ({ groupId, sectionName }) => {
         artefact &&
           <Artefact                 
             artefact={artefact}
-            callback={setArtefact}
+            setArtefact={setArtefact}
           />
         }
       </div>
