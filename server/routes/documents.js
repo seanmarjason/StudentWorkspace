@@ -98,11 +98,12 @@ router.delete('/delete/:fileName',(req, res) => {
     const {group_id} = getUser(username);
     const file = `documents/${group_id}/${req.params.fileName}`;
 
-    res.unlink(file, (err) => {
+    fs.unlink(file, (err) => {
       if (err) {
         console.log("Error : ", err);
         res.status(404).end()
       }
+      res.status(200).send("File name: "+fileName+" Deleted.");
     });
 
   } else {
