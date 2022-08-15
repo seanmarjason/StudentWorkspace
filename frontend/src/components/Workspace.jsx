@@ -28,6 +28,7 @@ const Workspace = ({ groupId }) => {
                   <Section
                     groupId={groupId}
                     sectionName={section}
+                    key={`${groupId}-${section}`}
                   />
                 )
               }
