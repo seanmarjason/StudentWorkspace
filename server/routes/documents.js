@@ -91,4 +91,23 @@ router.get('/list/:group_id/:sectionName', (req, res) => {
 
 });
 
+/*Delete a Document*/
+router.delete('/delete/:fileName',(req, res) => {
+  if (req.session.loggedIn) {
+    const username = req.session.userName;
+    const {group_id} = getUser(username);
+    const file = `documents/${group_id}/${req.params.fileName}`;
+
+    res.unlink(file, (err) => {
+      if (err) {
+        console.log("Error : ", err);
+        res.status(404).end()
+      }
+    });
+
+  } else {
+    res.status(401).send("User not logged in!");
+  }
+
+});
 module.exports = router;
