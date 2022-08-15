@@ -57,6 +57,7 @@ const Section = ({ groupId, sectionName }) => {
           <Artefact                 
             artefact={artefact}
             setArtefact={setArtefact}
+            sectionName={sectionName}
           />
         }
       </div>

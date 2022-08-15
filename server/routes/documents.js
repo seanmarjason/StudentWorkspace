@@ -1,16 +1,19 @@
 const express = require('express');
 const router = express.Router();
+const path = require('path');
 const fs = require('fs');
 const { getUser } = require('../helpers/getuser');
 
 /* Download document. */
-router.get('/download/:fileName', (req, res) => {
+router.get('/download/:sectionName/:fileName', (req, res) => {
   if (req.session.loggedIn) {
     const username = req.session.userName;
     const {group_id} = getUser(username);
-    const file = `documents/${group_id}/${req.params.fileName}`;
+    const file = `/../uploads/${group_id}/${req.params.sectionName}/${req.params.fileName}`;
 
-    res.download(file, (err) => {
+    const filePath = path.join(__dirname, file)
+
+    res.download(filePath, (err) => {
       if (err) {
         console.log("Error : ", err);
         res.status(404).end()
