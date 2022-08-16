@@ -19,8 +19,19 @@ const handleDownloadClick = async (sectionName, filename) => {
       link.click();
     })
     .catch(error => console.log(`Error: ${error}`))
+}
 
 
+const handleDeleteClick = (sectionName, artefact, callback) => {
+  console.log(`Trying to delete ${artefact} from ${sectionName}.`)
+  const url = `http://localhost:3000/documents/delete/${sectionName}/${artefact}`;
+
+  axios.delete(url)
+    .then(response => {
+      console.log(response.data);
+      callback(false)
+    })
+    .catch(error => console.log(`Error: ${error}`))
 }
 
 const Artefact = ({ artefact, setArtefact, sectionName }) => {
@@ -41,6 +52,11 @@ const Artefact = ({ artefact, setArtefact, sectionName }) => {
           onClick={() =>handleDownloadClick(sectionName, artefact)}
         >
           Download
+        </button>
+        <button
+          onClick={() => handleDeleteClick(sectionName, artefact, setArtefact)}
+        >
+          Delete
         </button>
       </div>
     </div>

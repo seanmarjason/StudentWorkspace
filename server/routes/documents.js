@@ -95,7 +95,7 @@ router.get('/list/:group_id/:sectionName', (req, res) => {
 });
 
 /*Delete a Document*/
-router.delete('/delete/:fileName',(req, res) => {
+router.delete('/delete/:sectionName/:fileName',(req, res) => {
   if (req.session.loggedIn) {
     const username = req.session.userName;
     const {group_id} = getUser(username);
@@ -108,7 +108,7 @@ router.delete('/delete/:fileName',(req, res) => {
         console.log("Error : ", err);
         res.status(404).end()
       }
-      res.status(200).send("File name: "+fileName+" Deleted.");
+      res.status(200).send("File name: "+ req.params.fileName +" Deleted.");
     });
 
   } else {
