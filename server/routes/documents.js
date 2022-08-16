@@ -96,7 +96,7 @@ router.delete('/delete/:fileName',(req, res) => {
   if (req.session.loggedIn) {
     const username = req.session.userName;
     const {group_id} = getUser(username);
-    const file = `documents/${group_id}/${req.params.fileName}`;
+    const file = `./uploads/${group_id}/${req.params.fileName}`;
 
     fs.unlink(file, (err) => {
       if (err) {
