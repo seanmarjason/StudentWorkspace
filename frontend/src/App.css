@@ -29,5 +29,6 @@ body {
   justify-content: center;
   flex-direction: column;
   gap: 20px;
+  min-height: 100vh;
 }
 

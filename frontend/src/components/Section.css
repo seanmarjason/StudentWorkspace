@@ -1,7 +1,8 @@
 .section {
+  display: inline-block;
   min-height: 15vh;
   width: 80vw;
-  margin: 5vh 10vw;
+  margin: 2.5vh 0vw 2.5vh 7.5vw;
   padding: 30px;
   box-shadow: 0 0 25px rgb(0 0 0 / 20%);
 }
