@@ -1,0 +1,21 @@
+
+.addSectionContainer {
+  width: 80vw;
+  padding: 30px;
+  text-align: center;
+  border: 2.5px dashed lightgray;
+  border-radius: 10px;
+  margin: 0 auto;
+  cursor: pointer;
+
+}
+
+.addSectionContainer:hover {
+  background: lightgray;
+  border: 2.5px solid lightgray;
+}
+
+.createSection * {
+  margin: 10px;
+  padding: 5px 10px;
+}

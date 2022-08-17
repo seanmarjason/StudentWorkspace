@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import axios from 'axios';
 import './Workspace.css';
 import { Section } from './Section';
+import { AddSection } from './AddSection';
 
 const Workspace = ({ groupId }) => {
 
@@ -14,7 +15,7 @@ const Workspace = ({ groupId }) => {
       .then(response => setWorkspaceData(response.data))
       .catch(error => console.log(`Error: ${error}`))
   }, [groupId]);
-  
+
   return (
     <div className="workspace">
       {
@@ -33,10 +34,15 @@ const Workspace = ({ groupId }) => {
                 )
               }
             </div>
+          <AddSection 
+            groupId={groupId}
+            setWorkspaceData={setWorkspaceData}
+          />
           </>
           :
           <p>Loading...</p>
-        };
+        }
+        <div className="footer"></div>
         </div>
   )
 }
