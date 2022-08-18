@@ -91,4 +91,26 @@ router.get('/list/:group_id/:sectionName', (req, res) => {
 
 });
 
+/*Delete a Document*/
+router.delete('/delete/:fileName',(req, res) => {
+  if (req.session.loggedIn) {
+    const username = req.session.userName;
+    const {group_id} = getUser(username);
+    const file = `/../uploads/${group_id}/${req.params.sectionName}/${req.params.fileName}`;
+
+    const filePath = path.join(__dirname, file);
+
+    fs.unlink(filePath, (err) => {
+      if (err) {
+        console.log("Error : ", err);
+        res.status(404).end()
+      }
+      res.status(200).send("File name: "+fileName+" Deleted.");
+    });
+
+  } else {
+    res.status(401).send("User not logged in!");
+  }
+
+});
 module.exports = router;
