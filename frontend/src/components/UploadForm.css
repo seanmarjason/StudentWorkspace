@@ -24,3 +24,15 @@
 .closeButton:hover {
   background: rgb(210, 210, 210);
 }
+
+.uploadingStatus {
+  height: 50px;
+}
+
+.uploadingStatus p {
+  text-align: center;
+  font-weight: bold;
+  padding-top: 20px;
+  margin: 0;
+  color: rgb(86, 86, 255);
+}

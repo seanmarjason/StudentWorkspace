@@ -30,6 +30,7 @@ const Section = ({ groupId, sectionName }) => {
         {
           sectionData.map(artefact => 
               <button
+                key={`${artefact}`}
                 className="artefact"
                 value={JSON.stringify(artefact)}
                 onClick={(event) => handleArtefactClick(event)}
@@ -56,6 +57,7 @@ const Section = ({ groupId, sectionName }) => {
           <Artefact                 
             artefact={artefact}
             setArtefact={setArtefact}
+            sectionName={sectionName}
           />
         }
       </div>
