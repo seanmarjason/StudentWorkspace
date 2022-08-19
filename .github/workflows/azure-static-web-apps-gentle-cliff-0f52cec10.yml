@@ -7,15 +7,28 @@ on:
     paths:
       - frontend/**
   pull_request:
-    types: [opened, synchronize, reopened, closed]
+    types: [opened, synchronize, reopened]
     branches:
       - master
 
 jobs:
-  build_and_deploy_job:
-    if: github.event_name == 'push' || (github.event_name == 'pull_request' && github.event.action != 'closed')
+  build:
+    name: Build
     runs-on: ubuntu-latest
-    name: Build and Deploy Job
+    steps:
+      - uses: actions/checkout@v2
+      - name: Set up Node.js version
+        uses: actions/setup-node@v1
+        with:
+          node-version: '16.x'
+      - name: npm install, build, and test
+        run: |
+          npm install --workspace=frontend
+          npm run frontend-build
+  deploy:
+    if: github.event.pull_request.merged == true
+    runs-on: ubuntu-latest
+    name: Deploy
     steps:
       - uses: actions/checkout@v2
         with:
@@ -33,15 +46,3 @@ jobs:
           api_location: "" # Api source code path - optional
           output_location: "build" # Built app content directory - optional
           ###### End of Repository/Build Configurations ######
-
-  close_pull_request_job:
-    if: github.event_name == 'pull_request' && github.event.action == 'closed'
-    runs-on: ubuntu-latest
-    name: Close Pull Request Job
-    steps:
-      - name: Close Pull Request
-        id: closepullrequest
-        uses: Azure/static-web-apps-deploy@v1
-        with:
-          azure_static_web_apps_api_token: ${{ secrets.AZURE_STATIC_WEB_APPS_API_TOKEN_GENTLE_CLIFF_0F52CEC10 }}
-          action: "close"
