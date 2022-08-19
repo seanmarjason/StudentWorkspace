@@ -15,3 +15,36 @@
   text-align: center;
   padding-bottom: 5vh;
 }
+
+.workspaceSections {
+  width: 100vw;
+}
+
+.sectionContainer {
+  display: flex;
+  align-items: center;
+}
+
+.moveButtons {
+  width: 2.5vw;
+  display: inline-block;
+  padding: 10px;
+}
+
+.moveButtons span {
+  color: gray;
+  font-size: 1.5em;
+  padding: 10px;
+  margin: 10px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.moveButtons span:hover {
+  background-color: lightgray;
+}
+
+.footer {
+  height: 10vh;
+  width: 100vw;
+}

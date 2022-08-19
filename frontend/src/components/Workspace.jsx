@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import axios from 'axios';
 import './Workspace.css';
 import { Section } from './Section';
+import { AddSection } from './AddSection';
 
 const Workspace = ({ groupId }) => {
 
@@ -14,7 +15,15 @@ const Workspace = ({ groupId }) => {
       .then(response => setWorkspaceData(response.data))
       .catch(error => console.log(`Error: ${error}`))
   }, [groupId]);
-  
+
+  const moveSection = (sectionName, direction) => {
+    const url = `http://localhost:3000/workspaces/${groupId.toString()}/${sectionName}/${direction}`
+    
+    axios.patch(url)
+      .then(response => setWorkspaceData(response.data))
+      .catch(error => console.log(`Error: ${error}`))
+  }
+
   return (
     <div className="workspace">
       {
@@ -25,18 +34,30 @@ const Workspace = ({ groupId }) => {
             <div className="workspaceSections">
               {
                 workspaceData.sections.map((section) =>
-                  <Section
-                    groupId={groupId}
-                    sectionName={section}
-                    key={`${groupId}-${section}`}
-                  />
+                  <div className="sectionContainer" id={section}>
+                    <Section
+                      groupId={groupId}
+                      sectionName={section}
+                    />
+                    <div className="moveButtons">
+                      <span onClick={() => moveSection(section, 'up')}>&#8593;</span>
+                      <br />
+                      <br />
+                      <span onClick={() => moveSection(section, 'down')}>&#8595;</span>
+                    </div>
+                  </div>
                 )
               }
             </div>
+          <AddSection 
+            groupId={groupId}
+            setWorkspaceData={setWorkspaceData}
+          />
           </>
           :
           <p>Loading...</p>
-        };
+        }
+        <div className="footer"></div>
         </div>
   )
 }

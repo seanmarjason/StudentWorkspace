@@ -20,11 +20,15 @@ function getWorkspaces(groupId) {
 
 }
 
-function updateWorkspace(data) {
-  const updatedWorkspaceData = {
-    ...workspaces,
-    data
-  }
+function updateWorkspace(groupId, data) {
+  const updatedWorkspaceData = workspaces.map(workspace => {
+    if (workspace.group_id === groupId) {
+      return data
+    }
+    else {
+      return workspace
+    }
+  })
 
   fs.writeFileSync(
     './data/workspaces.json',
