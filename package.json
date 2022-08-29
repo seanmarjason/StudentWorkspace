@@ -10,7 +10,8 @@
   "scripts": {
     "frontend-start": "npm run start --workspace=frontend",
     "frontend-build": "npm run build --workspace=frontend",
-    "frontend-test": "npm run test --workspace=frontend",
+    "test": "npm run test --workspace=frontend",
+    "test:watch": "npm run test:watch --workspace=frontend",
     "frontend-eject": "npm run eject --workspace=frontend",
     "backend-start": "npm run start --workspace=server",
     "backend-auto": "npm run auto --workspace=server",
