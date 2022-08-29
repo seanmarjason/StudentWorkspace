@@ -34,7 +34,7 @@ const Workspace = ({ groupId }) => {
             <div className="workspaceSections">
               {
                 workspaceData.sections.map((section) =>
-                  <div className="sectionContainer" id={section.name}>
+                  <div className="sectionContainer" id={section.name} key={section.name}>
                     <Section
                       groupId={groupId}
                       sectionName={section.name}

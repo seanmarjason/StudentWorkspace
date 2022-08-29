@@ -1,0 +1,31 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Artefact should match snapshot 1`] = `
+<DocumentFragment>
+  <div
+    class="artefactOverlay"
+  >
+    <p>
+      Workspace Artefact
+    </p>
+    <p>
+      for artefact: 
+    </p>
+    <span
+      class="closeButton"
+    >
+      ✕
+    </span>
+    <div
+      class="button-container"
+    >
+      <button>
+        Download
+      </button>
+      <button>
+        Delete
+      </button>
+    </div>
+  </div>
+</DocumentFragment>
+`;

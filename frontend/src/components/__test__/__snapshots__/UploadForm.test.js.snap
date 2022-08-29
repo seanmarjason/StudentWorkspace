@@ -1,0 +1,39 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Upload Form should match snapshot 1`] = `
+<DocumentFragment>
+  <div
+    class="form uploadForm"
+  >
+    <form>
+      <div
+        class="title"
+      >
+        File Upload
+      </div>
+      <div
+        class="button-container"
+      >
+        <input
+          type="file"
+        />
+        <button
+          id="submitButton"
+          type="submit"
+        >
+          Upload
+        </button>
+      </div>
+      <span
+        class="closeButton"
+      >
+        ✕
+      </span>
+    </form>
+    <hr />
+    <div
+      class="uploadingStatus"
+    />
+  </div>
+</DocumentFragment>
+`;

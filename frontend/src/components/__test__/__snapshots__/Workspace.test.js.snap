@@ -1,0 +1,72 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Workspace should match snapshot 1`] = `
+<DocumentFragment>
+  <div
+    class="workspace"
+  >
+    <h1>
+      Test Workspace 1
+    </h1>
+    <h2>
+      Group ABC
+    </h2>
+    <div
+      class="workspaceSections"
+    >
+      <div
+        class="sectionContainer"
+        id="research"
+      >
+        <div
+          class="section"
+        />
+        <div
+          class="moveButtons"
+        >
+          <span>
+            ↑
+          </span>
+          <br />
+          <br />
+          <span>
+            ↓
+          </span>
+        </div>
+      </div>
+      <div
+        class="sectionContainer"
+        id="deliverables"
+      >
+        <div
+          class="section"
+        />
+        <div
+          class="moveButtons"
+        >
+          <span>
+            ↑
+          </span>
+          <br />
+          <br />
+          <span>
+            ↓
+          </span>
+        </div>
+      </div>
+    </div>
+    <div
+      class="addSectionContainer"
+    >
+      <p
+        class="addSection"
+      >
+        ⊕ Add New Section
+      </p>
+    </div>
+    <div
+      class="footer"
+    />
+  </div>
+</DocumentFragment>
+`;

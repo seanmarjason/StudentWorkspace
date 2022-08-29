@@ -1,0 +1,42 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`AddSection should match snapshot 1`] = `
+<DocumentFragment>
+  <div
+    class="addSectionContainer"
+  >
+    <p
+      class="addSection"
+    >
+      ⊕ Add New Section
+    </p>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`AddSection should match snapshot when user clicks 1`] = `
+<DocumentFragment>
+  <div
+    class="addSectionContainer"
+  >
+    <form
+      class="createSection"
+    >
+      <input
+        id="newSectionNameInput"
+        placeholder="New Section Name"
+        type="text"
+        value=""
+      />
+      <button
+        type="submit"
+      >
+        Create
+      </button>
+      <button>
+        Cancel
+      </button>
+    </form>
+  </div>
+</DocumentFragment>
+`;
