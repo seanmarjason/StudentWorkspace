@@ -38,12 +38,13 @@ router.post('/upload', async (req, res) => {
         });
       } else {
         const file = req.files.file;
-        // const username = req.session.userName;
-
-        // const { group_id } = getUser(username);
-
+        const username = req.session.userName;
         const sectionName = req.body.section;
-        const groupId = req.body.groupId;
+        
+        const user = getUser(username);
+        const groupId = user.group_id.toString();
+
+        // const groupId = req.body.groupId;
 
         const fileLocation = `./uploads/${groupId}/${sectionName}/` + file.name;
 
@@ -56,6 +57,9 @@ router.post('/upload', async (req, res) => {
         }
 
         const workspaceData = getWorkspace(groupId);
+
+        console.log(workspaceData)
+
         const sectionIndex = workspaceData.sections.findIndex(section => section.name === sectionName);
 
         console.log(artifact)
@@ -76,6 +80,7 @@ router.post('/upload', async (req, res) => {
       }
 
     } catch (err) {
+      console.log(err);
       res.status(500).send(err);
     }
 
