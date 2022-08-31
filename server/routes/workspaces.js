@@ -36,7 +36,13 @@ router.post('/:groupId/:sectionName', (req, res) => {
     const sectionName = req.params.sectionName;
 
     const workspaceData = getWorkspace(groupId);
-    workspaceData.sections.push(sectionName);
+
+    const newSection = {
+      "name": sectionName,
+      "artifacts": []
+    }
+
+    workspaceData.sections.push(newSection);
 
     updateWorkspace(groupId, workspaceData);
 
@@ -57,8 +63,13 @@ router.patch('/:groupId/:sectionName/:direction', (req, res) => {
 
     const workspaceData = getWorkspace(groupId);
 
-    const sectionIndex = workspaceData.sections.indexOf(sectionName);
-    const newSectionIndex = sectionIndex + direction
+    // const sectionIndex = workspaceData.sections.indexOf(sectionName);
+
+    const sectionIndex = workspaceData.sections.findIndex(section => section.name === sectionName);
+
+    console.log("Section index is: " + sectionIndex);
+    
+    const newSectionIndex = sectionIndex + direction;
 
     if (newSectionIndex >= 0 && newSectionIndex <= workspaceData.sections.length - 1) {
       swapElement(workspaceData.sections, sectionIndex, newSectionIndex);

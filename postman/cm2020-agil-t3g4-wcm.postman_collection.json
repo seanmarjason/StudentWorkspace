@@ -39,15 +39,74 @@
 					]
 				},
 				"url": {
-					"raw": "http://localhost:3001/documents/upload",
+					"raw": "http://localhost:3001/artifacts/documents/upload",
 					"protocol": "http",
 					"host": [
 						"localhost"
 					],
 					"port": "3001",
 					"path": [
+						"artifacts",
 						"documents",
 						"upload"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Upload Link",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Cookie",
+						"value": "session-id={{Session-ID}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "linkName",
+							"value": "GitHub",
+							"type": "text"
+						},
+						{
+							"key": "linkUrl",
+							"value": "https://github.com/hh11100/cm2020-agil-t3g4-wcm",
+							"type": "text"
+						},
+						{
+							"key": "section",
+							"value": "research",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:3001/artifacts/links/add",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3001",
+					"path": [
+						"artifacts",
+						"links",
+						"add"
 					]
 				}
 			},
@@ -163,14 +222,14 @@
 					}
 				],
 				"url": {
-					"raw": "http://localhost:3001/documents/download/{{fileName}}",
+					"raw": "http://localhost:3001/artifacts/download/{{fileName}}",
 					"protocol": "http",
 					"host": [
 						"localhost"
 					],
 					"port": "3001",
 					"path": [
-						"documents",
+						"artifacts",
 						"download",
 						"{{fileName}}"
 					]
@@ -198,6 +257,32 @@
 					"port": "3001",
 					"path": [
 						"users"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Workspaces",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Cookie",
+						"value": "session-id={{Session-ID}}",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:3001/workspaces/testWorkspace",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3001",
+					"path": [
+						"workspaces",
+						"testWorkspace"
 					]
 				}
 			},

@@ -34,16 +34,16 @@ const Workspace = ({ groupId }) => {
             <div className="workspaceSections">
               {
                 workspaceData.sections.map((section) =>
-                  <div className="sectionContainer" id={section}>
+                  <div className="sectionContainer" id={section.name}>
                     <Section
                       groupId={groupId}
-                      sectionName={section}
+                      sectionName={section.name}
                     />
                     <div className="moveButtons">
-                      <span onClick={() => moveSection(section, 'up')}>&#8593;</span>
+                      <span onClick={() => moveSection(section.name, 'up')}>&#8593;</span>
                       <br />
                       <br />
-                      <span onClick={() => moveSection(section, 'down')}>&#8595;</span>
+                      <span onClick={() => moveSection(section.name, 'down')}>&#8595;</span>
                     </div>
                   </div>
                 )

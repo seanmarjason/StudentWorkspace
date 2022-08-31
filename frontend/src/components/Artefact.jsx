@@ -3,7 +3,7 @@ import { useOutsideClick } from '../hooks/useOutsideClick';
 import './Artefact.css';
 
 const handleDownloadClick = async (sectionName, filename) => {
-  const url = `http://localhost:3000/documents/download/${sectionName}/${filename}`;
+  const url = `http://localhost:3000/artifacts/documents/download/${sectionName}/${filename}`;
 
   axios({
     url,
@@ -24,7 +24,7 @@ const handleDownloadClick = async (sectionName, filename) => {
 
 const handleDeleteClick = (sectionName, artefact, callback) => {
   console.log(`Trying to delete ${artefact} from ${sectionName}.`)
-  const url = `http://localhost:3000/documents/delete/${sectionName}/${artefact}`;
+  const url = `http://localhost:3000/artifacts/documents/delete/${sectionName}/${artefact}`;
 
   axios.delete(url)
     .then(response => {

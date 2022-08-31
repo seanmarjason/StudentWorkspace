@@ -5,8 +5,14 @@
     "groupReference": "Group ABC",
     "groupMembers": [],
     "sections": [
-      "research",
-      "deliverables"
+      {
+        "name":  "research",
+        "artifacts": []
+      },
+      {
+        "name": "deliverables",
+        "artifacts": []
+      }
     ]
   },
   {
@@ -15,8 +21,14 @@
     "groupReference": "Group XYZ",
     "groupMembers": [],
     "sections": [
-      "research",
-      "deliverables"
+      {
+        "name": "research",
+        "artifacts": []
+      },
+      {
+        "name": "deliverables",
+        "artifacts": []
+      }
     ]
   }
 ]

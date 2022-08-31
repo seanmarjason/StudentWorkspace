@@ -3,7 +3,7 @@ import axios from 'axios';
 import { useOutsideClick } from '../hooks/useOutsideClick';
 import './UploadForm.css';
 
-const UploadForm = ({section, callback}) => {
+const UploadForm = ({section, groupId, callback}) => {
 
   const [file, setFile] = useState();
   const [error, setError] = useState(false);
@@ -22,12 +22,13 @@ const UploadForm = ({section, callback}) => {
     submitButton.disabled = true
     setUploading(true);
 
-    const url = 'http://localhost:3000/documents/upload';
+    const url = 'http://localhost:3000/artifacts/documents/upload';
     const formData = new FormData();
     
     formData.append('file', file);
     formData.append('fileName', file.name);
     formData.append('section', section);
+    formData.append('groupId', groupId);
   
     const config = {
       headers: {
