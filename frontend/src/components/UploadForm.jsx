@@ -6,6 +6,7 @@ import './UploadForm.css';
 const UploadForm = ({section, groupId, callback}) => {
 
   const [file, setFile] = useState();
+  const [link, setLink] = useState();
   const [error, setError] = useState(false);
   const [uploading, setUploading] = useState(false);
 
@@ -46,6 +47,11 @@ const UploadForm = ({section, groupId, callback}) => {
       });
   }
 
+  function handleLinkSubmit(event, link, section) {
+    event.preventDefault();
+    console.log(link);
+  }
+
   const handleClickOutside = () => {
     callback(false);
   };
@@ -54,13 +60,28 @@ const UploadForm = ({section, groupId, callback}) => {
 
   return (
     <div ref={ref} className="form uploadForm">
+      <span className="closeButton" onClick={() => callback(false)}>&#x2715;</span>
       <form onSubmit={(event) => handleUploadSubmit(event, file, section)}>
-        <div className="title">File Upload</div>
+        <h4 className="title">File Upload</h4>
         <div className="button-container">
-          <input type="file" onChange={(event) => setFile(event.target.files[0])}/>
-          <button id="submitButton" type="submit">Upload</button>
+          <input 
+            type="file" 
+            onChange={(event) => setFile(event.target.files[0])}
+          />
+          <button className="submitButton" type="submit">Upload</button>
         </div>
-        <span className="closeButton" onClick={() => callback(false)}>&#x2715;</span>
+      </form>
+      <p className="separator">-- OR --</p>
+      <form onSubmit={(event) => handleLinkSubmit(event, link, section)}>
+        <h4 className="title">Add Link to External Service</h4>
+        <input 
+          className="urlInput" 
+          type="url" 
+          placeholder="https://www.example.com/"
+          value={link}
+          onChange={(event) => setLink(event.target.value)}
+        />
+        <button className="submitButton" type="submit">Upload</button>
       </form>
       <hr></hr>
       <div className="uploadingStatus">

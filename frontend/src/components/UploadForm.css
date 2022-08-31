@@ -10,7 +10,7 @@
 
 .button-container {
   display: flex;
-  justify-content: center;
+  justify-content: space-between;
 }
 
 .closeButton {
@@ -35,4 +35,30 @@
   padding-top: 20px;
   margin: 0;
   color: rgb(86, 86, 255);
+}
+
+.title {
+  font-size: 25px;
+  margin: 0 0 30px 0;
+  text-align: center;
+}
+
+.uploadForm > form {
+  position: relative;
+  padding-bottom: 30px;
+}
+
+.submitButton {
+  position: absolute;
+  right: 0;
+}
+
+.separator {
+  margin: 30px 0 30px 0;
+  text-align: center;
+  font-weight: bold;
+}
+
+.urlInput {
+  width: 75%;
 }
