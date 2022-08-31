@@ -3,6 +3,7 @@ const router = express.Router();
 const path = require('path');
 const fs = require('fs');
 const { getUser } = require('../helpers/getuser');
+const { getWorkspace, updateWorkspace } = require('../helpers/getWorkspace');
 
 /* Download document. */
 router.get('/download/:sectionName/:fileName', (req, res) => {
@@ -37,13 +38,31 @@ router.post('/upload', async (req, res) => {
         });
       } else {
         const file = req.files.file;
-        const username = req.session.userName;
+        // const username = req.session.userName;
 
-        const { group_id } = getUser(username);
+        // const { group_id } = getUser(username);
 
-        const section = req.body.section;
+        const sectionName = req.body.section;
+        const groupId = req.body.groupId;
 
-        file.mv(`./uploads/${group_id}/${section}/` + file.name);
+        const fileLocation = `./uploads/${groupId}/${sectionName}/` + file.name;
+
+        file.mv(fileLocation);
+
+        const artifact = {
+          "type": "file",
+          "name": file.name,
+          "url": fileLocation
+        }
+
+        const workspaceData = getWorkspace(groupId);
+        const sectionIndex = workspaceData.sections.findIndex(section => section.name === sectionName);
+
+        console.log(artifact)
+        workspaceData.sections[sectionIndex].artifacts.push(artifact)
+        console.log(workspaceData.sections[sectionIndex].artifacts)
+
+        updateWorkspace(groupId, workspaceData);
 
         res.send({
           status: true,

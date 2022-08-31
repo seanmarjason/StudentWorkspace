@@ -37,7 +37,7 @@ app.use(session({
   name: "session-id",
   saveUninitialized: false,
   resave: false,
-  cookie: {expires: 600000, domain: "localhost"}
+  cookie: {expires: 3600 * 1000, domain: "localhost"}
 }));
 
 app.use('/', indexRouter);

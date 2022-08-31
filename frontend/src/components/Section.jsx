@@ -49,6 +49,7 @@ const Section = ({ groupId, sectionName }) => {
         showUploadForm && 
           <UploadForm
             section={sectionName}
+            groupId={groupId}
             callback={setShowUploadForm}
           />
         }
