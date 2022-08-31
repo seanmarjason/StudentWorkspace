@@ -22,7 +22,7 @@ const UploadForm = ({section, groupId, callback}) => {
     submitButton.disabled = true
     setUploading(true);
 
-    const url = 'http://localhost:3000/documents/upload';
+    const url = 'http://localhost:3000/artifacts/documents/upload';
     const formData = new FormData();
     
     formData.append('file', file);

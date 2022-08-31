@@ -10,7 +10,7 @@ var bodyParser = require('body-parser');
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
-var documentsRouter = require('./routes/documents');
+var artifactsRouter = require('./routes/artifacts');
 var workspacesRouter = require('./routes/workspaces');
 
 var app = express();
@@ -42,7 +42,7 @@ app.use(session({
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
-app.use('/documents', documentsRouter);
+app.use('/artifacts', artifactsRouter);
 app.use('/workspaces', workspacesRouter);
 
 // catch 404 and forward to error handler

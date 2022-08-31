@@ -11,7 +11,7 @@ const Section = ({ groupId, sectionName }) => {
   const [artefact, setArtefact] = useState(null);
 
   useEffect(() => {
-    const url = `http://localhost:3000/documents/list/${groupId.toString()}/${sectionName}`
+    const url = `http://localhost:3000/artifacts/documents/list/${groupId.toString()}/${sectionName}`
 
     axios.get(url)
       .then(response => setSectionData(response.data.documents))

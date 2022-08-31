@@ -6,7 +6,7 @@ const { getUser } = require('../helpers/getuser');
 const { getWorkspace, updateWorkspace } = require('../helpers/getWorkspace');
 
 /* Download document. */
-router.get('/download/:sectionName/:fileName', (req, res) => {
+router.get('/documents/download/:sectionName/:fileName', (req, res) => {
   if (req.session.loggedIn) {
     const username = req.session.userName;
     const {group_id} = getUser(username);
@@ -28,7 +28,7 @@ router.get('/download/:sectionName/:fileName', (req, res) => {
 });
 
 /* Upload document. */
-router.post('/upload', async (req, res) => {
+router.post('/documents/upload', async (req, res) => {
   if (req.session.loggedIn) {
     try {
       if (!req.files) {
@@ -90,7 +90,7 @@ router.post('/upload', async (req, res) => {
 });
 
 /* Get list of documents. */
-router.get('/list/:group_id/:sectionName', (req, res) => {
+router.get('/documents/list/:group_id/:sectionName', (req, res) => {
   if (req.session.loggedIn) {
     const group_id = req.params.group_id;
     const sectionName = req.params.sectionName;
@@ -119,7 +119,7 @@ router.get('/list/:group_id/:sectionName', (req, res) => {
 });
 
 /*Delete a Document*/
-router.delete('/delete/:sectionName/:fileName',(req, res) => {
+router.delete('/documents/delete/:sectionName/:fileName',(req, res) => {
   if (req.session.loggedIn) {
     const username = req.session.userName;
     const {group_id} = getUser(username);
