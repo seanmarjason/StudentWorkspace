@@ -140,4 +140,57 @@ router.delete('/documents/delete/:sectionName/:fileName',(req, res) => {
   }
 
 });
+
+/*Add a link*/
+router.post('/links/add', async (req, res) => {
+  if (req.session.loggedIn) {
+    try {
+      if (!req.body.linkName || !req.body.linkUrl) {
+        res.send({
+          status: false,
+          message: 'No link to add'
+        });
+      } else {
+        const username = req.session.userName;
+        const sectionName = req.body.section;
+        const linkName = req.body.linkName;
+        const linkUrl = req.body.linkUrl;
+        
+        const user = getUser(username);
+        const groupId = user.group_id.toString();
+
+        const artifact = {
+          "type": "link",
+          "name": linkName,
+          "url": linkUrl
+        }
+
+        const workspaceData = getWorkspace(groupId);
+
+        console.log(workspaceData)
+
+        const sectionIndex = workspaceData.sections.findIndex(section => section.name === sectionName);
+
+        console.log(artifact)
+        workspaceData.sections[sectionIndex].artifacts.push(artifact)
+        console.log(workspaceData.sections[sectionIndex].artifacts)
+
+        updateWorkspace(groupId, workspaceData);
+
+        res.send({
+          status: true,
+          message: 'Link has been added'
+        });
+      }
+
+    } catch (err) {
+      console.log(err);
+      res.status(500).send(err);
+    }
+
+  } else {
+    res.status(401).send("User not logged in!");
+  }
+});
+
 module.exports = router;
