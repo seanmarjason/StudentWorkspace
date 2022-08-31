@@ -10,77 +10,54 @@ const UploadForm = ({section, groupId, callback}) => {
   const [error, setError] = useState(false);
   const [uploading, setUploading] = useState(false);
 
+  function setSubmitButtons(state) {
+    const submitButtons = Array.from(document.getElementsByClassName("submitButton"));
+    submitButtons.forEach(button => button.disabled = state);
+  }
+
   function prepareSubmit(event) {
     event.preventDefault()
     setError(false);
-    const submitButtons = Array.from(document.getElementsByClassName("submitButton"));
-    submitButtons.forEach(button => button.disabled = true);
+    setSubmitButtons(true)
     setUploading(true);
   }
 
   function processResponse(response) {
     console.log(response.data);
     setUploading(false);
-    setFile(null)
-    const submitButtons = Array.from(document.getElementsByClassName("submitButton"));
-    submitButtons.forEach(button => button.disabled = false);
-    callback(false)
+    setFile(null);
+    setSubmitButtons(false);
+    callback(false);
   }
 
   function processError() {
     setError(true);
     setUploading(false);
     setFile(null);
-    const submitButtons = Array.from(document.getElementsByClassName("submitButton"));
-    submitButtons.forEach(button => button.disabled = false);
+    setSubmitButtons(false);
   }
 
-  function handleFileUpload(event, file, section) {
+  function handleUpload(event, artefact, type, section) {
     prepareSubmit(event);
 
-    if (!file) {
+    if (!artefact) {
       processError();
       return
     }
 
-    const submitButton = document.getElementById("submitButton");
-    submitButton.disabled = true
-    setUploading(true);
-
-    const url = 'http://localhost:3000/artifacts/document';
+    const url = `http://localhost:3000/artifacts/add/${type}`;
     const formData = new FormData();
-    
-    formData.append('file', file);
-    formData.append('fileName', file.name);
     formData.append('section', section);
     formData.append('groupId', groupId);
-  
-    const config = {
-      headers: {
-        'content-type': 'multipart/form-data'
-      }
-    };
-  
-    axios.post(url, formData, config)
-      .then((response) => {
-        processResponse(response)
-      });
-  }
-
-  function handleLinkUpload(event, link, section) {
-    prepareSubmit(event);
     
-    if (!link) {
-      processError();
-      return
+    if (type === 'document') {
+      formData.append('file', artefact);
+      formData.append('fileName', artefact.name);
     }
-
-    const url = 'http://localhost:3000/artifacts/link';
-    const formData = new FormData();
-    
-    formData.append('link', link);
-    formData.append('section', section);
-    formData.append('groupId', groupId);
+    if (type === 'link') {
+      formData.append('linkName', artefact.name.value);
+      formData.append('linkUrl', artefact.url.value);
+    }
   
     const config = {
       headers: {
@@ -103,7 +80,7 @@ const UploadForm = ({section, groupId, callback}) => {
   return (
     <div ref={ref} className="form uploadForm">
       <span className="closeButton" onClick={() => callback(false)}>&#x2715;</span>
-      <form onSubmit={(event) => handleFileUpload(event, file, section)}>
+      <form onSubmit={(event) => handleUpload(event, file, 'document', section)}>
         <h4 className="title">File Upload</h4>
         <div className="button-container">
           <input 
@@ -114,14 +91,21 @@ const UploadForm = ({section, groupId, callback}) => {
         </div>
       </form>
       <p className="separator">-- OR --</p>
-      <form onSubmit={(event) => handleLinkUpload(event, link, section)}>
+      <form onSubmit={(event) => handleUpload(event, event.target, 'link', section)}>
         <h4 className="title">Add Link to External Service</h4>
+        <input 
+          className="urlInput" 
+          type="string" 
+          placeholder="My Link Name"
+          name="name"
+          value={link}
+          onChange={(event) => setLink(event.target.value)}
+        />
         <input 
           className="urlInput" 
           type="url" 
           placeholder="https://www.example.com/"
-          value={link}
-          onChange={(event) => setLink(event.target.value)}
+          name="url"
         />
         <button className="submitButton" type="submit">Upload</button>
       </form>

@@ -28,7 +28,7 @@ router.get('/documents/download/:sectionName/:fileName', (req, res) => {
 });
 
 /* Upload document. */
-router.post('/documents/upload', async (req, res) => {
+router.post('/add/document', async (req, res) => {
   if (req.session.loggedIn) {
     try {
       if (!req.files) {
@@ -142,7 +142,7 @@ router.delete('/documents/delete/:sectionName/:fileName',(req, res) => {
 });
 
 /*Add a link*/
-router.post('/links/add', async (req, res) => {
+router.post('/add/link', async (req, res) => {
   if (req.session.loggedIn) {
     try {
       if (!req.body.linkName || !req.body.linkUrl) {
