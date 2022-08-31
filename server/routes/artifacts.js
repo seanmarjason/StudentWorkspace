@@ -90,7 +90,7 @@ router.post('/add/document', async (req, res) => {
 });
 
 /* Get list of documents. */
-router.get('/documents/list/:group_id/:sectionName', (req, res) => {
+router.get('/list/:group_id/:sectionName', (req, res) => {
   if (req.session.loggedIn) {
     const group_id = req.params.group_id;
     const sectionName = req.params.sectionName;

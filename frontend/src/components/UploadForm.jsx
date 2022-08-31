@@ -100,12 +100,14 @@ const UploadForm = ({section, groupId, callback}) => {
           name="name"
           value={link}
           onChange={(event) => setLink(event.target.value)}
+          required
         />
         <input 
           className="urlInput" 
           type="url" 
           placeholder="https://www.example.com/"
           name="url"
+          required
         />
         <button className="submitButton" type="submit">Upload</button>
       </form>

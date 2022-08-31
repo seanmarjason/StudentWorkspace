@@ -11,10 +11,10 @@ const Section = ({ groupId, sectionName }) => {
   const [artefact, setArtefact] = useState(null);
 
   useEffect(() => {
-    const url = `http://localhost:3000/artifacts/documents/list/${groupId.toString()}/${sectionName}`
+    const url = `http://localhost:3000/workspaces/list/${groupId.toString()}/${sectionName}`
 
     axios.get(url)
-      .then(response => setSectionData(response.data.documents))
+      .then(response => setSectionData(response.data))
       .catch(error => console.log(`Error: ${error}`))
   }, [groupId, sectionName, showUploadForm, artefact]);
 
@@ -30,12 +30,12 @@ const Section = ({ groupId, sectionName }) => {
         {
           sectionData.map(artefact => 
               <button
-                key={`${artefact}`}
+                key={`${artefact.name}`}
                 className="artefact"
-                value={JSON.stringify(artefact)}
+                value={JSON.stringify(artefact.name)}
                 onClick={(event) => handleArtefactClick(event)}
               >
-                {artefact}
+                {artefact.name}
               </button>
           )
         }

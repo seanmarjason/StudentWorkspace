@@ -85,4 +85,31 @@ router.patch('/:groupId/:sectionName/:direction', (req, res) => {
 
 });
 
+/* Get section details. */
+router.get('/list/:groupId/:sectionName', (req, res) => {
+  if (req.session.loggedIn) {
+    const groupId = req.params.groupId;
+    const sectionName = req.params.sectionName;
+
+    const workspaceData = getWorkspace(groupId);
+
+    if (!workspaceData) {
+      res.status(401).send({ error: "Workspace not found!" });
+      return
+    }
+
+    const sectionData = workspaceData.sections.find(
+        (section) => section.name === sectionName
+      );
+
+
+    res.status(200).send(sectionData.artifacts);
+
+  } else {
+    console.log("Error: User not logged in")
+    res.status(401).send("User not logged in!");
+  }
+
+});
+
 module.exports = router;
