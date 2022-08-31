@@ -10,12 +10,36 @@ const UploadForm = ({section, groupId, callback}) => {
   const [error, setError] = useState(false);
   const [uploading, setUploading] = useState(false);
 
-  function handleUploadSubmit(event, file, section) {
+  function prepareSubmit(event) {
     event.preventDefault()
     setError(false);
+    const submitButtons = Array.from(document.getElementsByClassName("submitButton"));
+    submitButtons.forEach(button => button.disabled = true);
+    setUploading(true);
+  }
+
+  function processResponse(response) {
+    console.log(response.data);
+    setUploading(false);
+    setFile(null)
+    const submitButtons = Array.from(document.getElementsByClassName("submitButton"));
+    submitButtons.forEach(button => button.disabled = false);
+    callback(false)
+  }
+
+  function processError() {
+    setError(true);
+    setUploading(false);
+    setFile(null);
+    const submitButtons = Array.from(document.getElementsByClassName("submitButton"));
+    submitButtons.forEach(button => button.disabled = false);
+  }
+
+  function handleFileUpload(event, file, section) {
+    prepareSubmit(event);
 
     if (!file) {
-      setError(true)
+      processError();
       return
     }
 
@@ -23,7 +47,7 @@ const UploadForm = ({section, groupId, callback}) => {
     submitButton.disabled = true
     setUploading(true);
 
-    const url = 'http://localhost:3000/artifacts/documents/upload';
+    const url = 'http://localhost:3000/artifacts/document';
     const formData = new FormData();
     
     formData.append('file', file);
@@ -39,17 +63,35 @@ const UploadForm = ({section, groupId, callback}) => {
   
     axios.post(url, formData, config)
       .then((response) => {
-        console.log(response.data);
-        setFile(null)
-        submitButton.disabled = false;
-        setUploading(false);
-        callback(false)
+        processResponse(response)
       });
   }
 
-  function handleLinkSubmit(event, link, section) {
-    event.preventDefault();
-    console.log(link);
+  function handleLinkUpload(event, link, section) {
+    prepareSubmit(event);
+    
+    if (!link) {
+      processError();
+      return
+    }
+
+    const url = 'http://localhost:3000/artifacts/link';
+    const formData = new FormData();
+    
+    formData.append('link', link);
+    formData.append('section', section);
+    formData.append('groupId', groupId);
+  
+    const config = {
+      headers: {
+        'content-type': 'multipart/form-data'
+      }
+    };
+  
+    axios.post(url, formData, config)
+      .then((response) => {
+        processResponse(response)
+      });
   }
 
   const handleClickOutside = () => {
@@ -61,7 +103,7 @@ const UploadForm = ({section, groupId, callback}) => {
   return (
     <div ref={ref} className="form uploadForm">
       <span className="closeButton" onClick={() => callback(false)}>&#x2715;</span>
-      <form onSubmit={(event) => handleUploadSubmit(event, file, section)}>
+      <form onSubmit={(event) => handleFileUpload(event, file, section)}>
         <h4 className="title">File Upload</h4>
         <div className="button-container">
           <input 
@@ -72,7 +114,7 @@ const UploadForm = ({section, groupId, callback}) => {
         </div>
       </form>
       <p className="separator">-- OR --</p>
-      <form onSubmit={(event) => handleLinkSubmit(event, link, section)}>
+      <form onSubmit={(event) => handleLinkUpload(event, link, section)}>
         <h4 className="title">Add Link to External Service</h4>
         <input 
           className="urlInput" 
@@ -86,7 +128,7 @@ const UploadForm = ({section, groupId, callback}) => {
       <hr></hr>
       <div className="uploadingStatus">
       { uploading && <p>Uploading ...</p> }
-      { error && <p>Error uploading document. Please try again.</p> }
+      { error && <p>Error uploading. Please try again.</p> }
       </div>
     </div>
     )
