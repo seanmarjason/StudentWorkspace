@@ -6,29 +6,58 @@ import './UploadForm.css';
 const UploadForm = ({section, groupId, callback}) => {
 
   const [file, setFile] = useState();
+  const [link, setLink] = useState();
   const [error, setError] = useState(false);
   const [uploading, setUploading] = useState(false);
 
-  function handleUploadSubmit(event, file, section) {
+  function setSubmitButtons(state) {
+    const submitButtons = Array.from(document.getElementsByClassName("submitButton"));
+    submitButtons.forEach(button => button.disabled = state);
+  }
+
+  function prepareSubmit(event) {
     event.preventDefault()
     setError(false);
+    setSubmitButtons(true)
+    setUploading(true);
+  }
 
-    if (!file) {
-      setError(true)
+  function processResponse(response) {
+    console.log(response.data);
+    setUploading(false);
+    setFile(null);
+    setSubmitButtons(false);
+    callback(false);
+  }
+
+  function processError() {
+    setError(true);
+    setUploading(false);
+    setFile(null);
+    setSubmitButtons(false);
+  }
+
+  function handleUpload(event, artefact, type, section) {
+    prepareSubmit(event);
+
+    if (!artefact) {
+      processError();
       return
     }
 
-    const submitButton = document.getElementById("submitButton");
-    submitButton.disabled = true
-    setUploading(true);
-
-    const url = 'http://localhost:3000/artifacts/documents/upload';
+    const url = `http://localhost:3000/artifacts/add/${type}`;
     const formData = new FormData();
-    
-    formData.append('file', file);
-    formData.append('fileName', file.name);
     formData.append('section', section);
     formData.append('groupId', groupId);
+    
+    if (type === 'document') {
+      formData.append('file', artefact);
+      formData.append('fileName', artefact.name);
+    }
+    if (type === 'link') {
+      formData.append('linkName', artefact.name.value);
+      formData.append('linkUrl', artefact.url.value);
+    }
   
     const config = {
       headers: {
@@ -38,11 +67,7 @@ const UploadForm = ({section, groupId, callback}) => {
   
     axios.post(url, formData, config)
       .then((response) => {
-        console.log(response.data);
-        setFile(null)
-        submitButton.disabled = false;
-        setUploading(false);
-        callback(false)
+        processResponse(response)
       });
   }
 
@@ -54,18 +79,42 @@ const UploadForm = ({section, groupId, callback}) => {
 
   return (
     <div ref={ref} className="form uploadForm">
-      <form onSubmit={(event) => handleUploadSubmit(event, file, section)}>
-        <div className="title">File Upload</div>
+      <span className="closeButton" onClick={() => callback(false)}>&#x2715;</span>
+      <form onSubmit={(event) => handleUpload(event, file, 'document', section)}>
+        <h4 className="title">File Upload</h4>
         <div className="button-container">
-          <input type="file" onChange={(event) => setFile(event.target.files[0])}/>
-          <button id="submitButton" type="submit">Upload</button>
+          <input 
+            type="file" 
+            onChange={(event) => setFile(event.target.files[0])}
+          />
+          <button className="submitButton" type="submit">Upload</button>
         </div>
-        <span className="closeButton" onClick={() => callback(false)}>&#x2715;</span>
+      </form>
+      <p className="separator">-- OR --</p>
+      <form onSubmit={(event) => handleUpload(event, event.target, 'link', section)}>
+        <h4 className="title">Add Link to External Service</h4>
+        <input 
+          className="urlInput" 
+          type="string" 
+          placeholder="My Link Name"
+          name="name"
+          value={link}
+          onChange={(event) => setLink(event.target.value)}
+          required
+        />
+        <input 
+          className="urlInput" 
+          type="url" 
+          placeholder="https://www.example.com/"
+          name="url"
+          required
+        />
+        <button className="submitButton" type="submit">Upload</button>
       </form>
       <hr></hr>
       <div className="uploadingStatus">
       { uploading && <p>Uploading ...</p> }
-      { error && <p>Error uploading document. Please try again.</p> }
+      { error && <p>Error uploading. Please try again.</p> }
       </div>
     </div>
     )
