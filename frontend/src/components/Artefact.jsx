@@ -43,22 +43,53 @@ const Artefact = ({ artefact, setArtefact, sectionName }) => {
   const ref = useOutsideClick(handleClickOutside);
 
   return (
-    <div ref={ref} className="artefactOverlay">
-      <p>Workspace Artefact</p>
-      <p>for artefact: {artefact}</p>
+    <div ref={ref} className={`artefactOverlay artefactOverlay-${artefact.type}`}>
+      <h4>{`Workspace ${artefact.type}`}</h4>
       <span className="closeButton" onClick={() => setArtefact(null)}>&#x2715;</span>
-      <div className="button-container">
-        <button
-          onClick={() =>handleDownloadClick(sectionName, artefact)}
-        >
-          Download
-        </button>
-        <button
-          onClick={() => handleDeleteClick(sectionName, artefact, setArtefact)}
-        >
-          Delete
-        </button>
-      </div>
+
+      { artefact.type === 'file' && 
+        <>
+          <p>{artefact.name}</p>
+          <div className="button-container">
+            <button
+              onClick={() =>handleDownloadClick(sectionName, artefact)}
+              className="download"
+              >
+              Download
+            </button>
+            <button
+              onClick={() => handleDeleteClick(sectionName, artefact, setArtefact)}
+              className="delete"
+              >
+              Delete
+            </button>
+          </div>
+        </>
+      }
+
+      { artefact.type === 'link' && 
+        <>
+          <p>{artefact.name}</p>
+          <i>{artefact.url}</i>
+          <div className="button-container">
+            <a
+              href={`${artefact.url}`}
+              target="_blank" 
+              rel="noreferrer"
+              className="open"
+            >
+              Go to service
+            </a>
+            <button
+              onClick={() => handleDeleteClick(sectionName, artefact, setArtefact)}
+              className="delete"
+            >
+              Delete
+            </button>
+          </div>
+        </>
+      }
+
     </div>
   )
 }

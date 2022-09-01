@@ -18,11 +18,6 @@ const Section = ({ groupId, sectionName }) => {
       .catch(error => console.log(`Error: ${error}`))
   }, [groupId, sectionName, showUploadForm, artefact]);
 
-  const handleArtefactClick = (event) => {
-    const artefact = JSON.parse(event.target.value);
-    setArtefact(artefact)
-  }
-
   return (
     <div className="section">
       <h3>{sectionName}</h3>
@@ -31,9 +26,8 @@ const Section = ({ groupId, sectionName }) => {
           sectionData.map(artefact => 
               <button
                 key={`${artefact.name}`}
-                className="artefact"
-                value={JSON.stringify(artefact.name)}
-                onClick={(event) => handleArtefactClick(event)}
+                className={`artefact artefact-${artefact.type}`}
+                onClick={() => setArtefact(artefact)}
               >
                 {artefact.name}
               </button>
