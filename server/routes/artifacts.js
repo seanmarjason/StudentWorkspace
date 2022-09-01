@@ -119,12 +119,23 @@ router.get('/list/:group_id/:sectionName', (req, res) => {
 });
 
 /*Delete a Document*/
-router.delete('/documents/delete/:sectionName/:fileName',(req, res) => {
+router.delete('/delete/document/:sectionName/:fileName',(req, res) => {
   if (req.session.loggedIn) {
     const username = req.session.userName;
+    const sectionName = req.params.sectionName;
+    const fileName = req.params.fileName;
     const {group_id} = getUser(username);
-    const file = `/../uploads/${group_id}/${req.params.sectionName}/${req.params.fileName}`;
 
+    const workspaceData = getWorkspace(group_id);
+
+    const sectionIndex = workspaceData.sections.findIndex(section => section.name === sectionName);
+    const artefactIndex = workspaceData.sections[sectionIndex].artifacts.findIndex(artefact => artefact.name === fileName);
+
+    workspaceData.sections[sectionIndex].artifacts.splice(artefactIndex, 1)
+
+    updateWorkspace(group_id, workspaceData);
+
+    const file = `/../uploads/${group_id}/${req.params.sectionName}/${req.params.fileName}`;
     const filePath = path.join(__dirname, file);
 
     fs.unlink(filePath, (err) => {
@@ -132,13 +143,12 @@ router.delete('/documents/delete/:sectionName/:fileName',(req, res) => {
         console.log("Error : ", err);
         res.status(404).end()
       }
-      res.status(200).send("File name: "+ req.params.fileName +" Deleted.");
     });
 
+    res.status(200).send("File name: "+ req.params.fileName +" Deleted.");
   } else {
     res.status(401).send("User not logged in!");
   }
-
 });
 
 /*Add a link*/
@@ -188,6 +198,29 @@ router.post('/add/link', async (req, res) => {
       res.status(500).send(err);
     }
 
+  } else {
+    res.status(401).send("User not logged in!");
+  }
+});
+
+/*Delete a Document*/
+router.delete('/delete/link/:sectionName/:linkName',(req, res) => {
+  if (req.session.loggedIn) {
+    const username = req.session.userName;
+    const sectionName = req.params.sectionName;
+    const linkName = req.params.linkName;
+    const {group_id} = getUser(username);
+
+    const workspaceData = getWorkspace(group_id);
+
+    const sectionIndex = workspaceData.sections.findIndex(section => section.name === sectionName);
+    const artefactIndex = workspaceData.sections[sectionIndex].artifacts.findIndex(artefact => artefact.name === linkName);
+
+    workspaceData.sections[sectionIndex].artifacts.splice(artefactIndex, 1)
+
+    updateWorkspace(group_id, workspaceData);
+
+    res.status(200).send("Link name: "+ linkName +" Deleted.");
   } else {
     res.status(401).send("User not logged in!");
   }

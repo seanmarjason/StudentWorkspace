@@ -22,9 +22,9 @@ const handleDownloadClick = async (sectionName, filename) => {
 }
 
 
-const handleDeleteClick = (sectionName, artefact, callback) => {
+const handleDeleteClick = (sectionName, artefact, type, callback) => {
   console.log(`Trying to delete ${artefact} from ${sectionName}.`)
-  const url = `http://localhost:3000/artifacts/documents/delete/${sectionName}/${artefact}`;
+  const url = `http://localhost:3000/artifacts/delete/${type}/${sectionName}/${artefact}`;
 
   axios.delete(url)
     .then(response => {
@@ -52,13 +52,13 @@ const Artefact = ({ artefact, setArtefact, sectionName }) => {
           <p>{artefact.name}</p>
           <div className="button-container">
             <button
-              onClick={() =>handleDownloadClick(sectionName, artefact)}
+              onClick={() =>handleDownloadClick(sectionName, artefact.name)}
               className="download"
               >
               Download
             </button>
             <button
-              onClick={() => handleDeleteClick(sectionName, artefact, setArtefact)}
+              onClick={() => handleDeleteClick(sectionName, artefact.name, 'document', setArtefact)}
               className="delete"
               >
               Delete
@@ -70,7 +70,7 @@ const Artefact = ({ artefact, setArtefact, sectionName }) => {
       { artefact.type === 'link' && 
         <>
           <p>{artefact.name}</p>
-          <i>{artefact.url}</i>
+          <p><i>{artefact.url}</i></p>
           <div className="button-container">
             <a
               href={`${artefact.url}`}
@@ -81,7 +81,7 @@ const Artefact = ({ artefact, setArtefact, sectionName }) => {
               Go to service
             </a>
             <button
-              onClick={() => handleDeleteClick(sectionName, artefact, setArtefact)}
+              onClick={() => handleDeleteClick(sectionName, artefact, 'link', setArtefact)}
               className="delete"
             >
               Delete

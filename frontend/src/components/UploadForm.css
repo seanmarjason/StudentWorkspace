@@ -9,7 +9,7 @@
   padding: 50px;
 }
 
-.button-container {
+.uploadForm .button-container {
   display: flex;
   justify-content: space-between;
 }
