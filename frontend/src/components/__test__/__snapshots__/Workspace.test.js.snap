@@ -16,7 +16,6 @@ exports[`Workspace should match snapshot 1`] = `
     >
       <div
         class="sectionContainer"
-        id="research"
       >
         <div
           class="section"
@@ -36,7 +35,6 @@ exports[`Workspace should match snapshot 1`] = `
       </div>
       <div
         class="sectionContainer"
-        id="deliverables"
       >
         <div
           class="section"
