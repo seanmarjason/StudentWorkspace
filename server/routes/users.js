@@ -22,14 +22,15 @@ router.post('/login', (req, res, next) => {
     }
 
     res.locals.userName = username;
-    res.locals.group_id = group_id;
+    res.locals.groupId = group_id;
     next();
   },
   (req, res) => {
     req.session.loggedIn = true;
     req.session.userName = res.locals.userName;
+    req.session.groupId = res.locals.groupId;
     console.log(req.session);
-    res.send({ status: 'Login successful!', group_id: res.locals.group_id });
+    res.send({ status: 'Login successful!', group_id: res.locals.groupId });
   }
 
 );

@@ -2,15 +2,13 @@ const express = require('express');
 const router = express.Router();
 const path = require('path');
 const fs = require('fs');
-const { getUser } = require('../helpers/getuser');
 const { getWorkspace, updateWorkspace } = require('../helpers/getWorkspace');
 
 /* Download document. */
 router.get('/documents/download/:sectionName/:fileName', (req, res) => {
   if (req.session.loggedIn) {
-    const username = req.session.userName;
-    const {group_id} = getUser(username);
-    const file = `/../uploads/${group_id}/${req.params.sectionName}/${req.params.fileName}`;
+    const groupId = req.session.groupId
+    const file = `/../uploads/${groupId}/${req.params.sectionName}/${req.params.fileName}`;
 
     const filePath = path.join(__dirname, file)
 
@@ -38,13 +36,8 @@ router.post('/add/document', async (req, res) => {
         });
       } else {
         const file = req.files.file;
-        const username = req.session.userName;
+        const groupId = req.session.groupId
         const sectionName = req.body.section;
-        
-        const user = getUser(username);
-        const groupId = user.group_id.toString();
-
-        // const groupId = req.body.groupId;
 
         const fileLocation = `./uploads/${groupId}/${sectionName}/` + file.name;
 
@@ -57,15 +50,9 @@ router.post('/add/document', async (req, res) => {
         }
 
         const workspaceData = getWorkspace(groupId);
-
-        console.log(workspaceData)
-
         const sectionIndex = workspaceData.sections.findIndex(section => section.name === sectionName);
-
-        console.log(artifact)
+  
         workspaceData.sections[sectionIndex].artifacts.push(artifact)
-        console.log(workspaceData.sections[sectionIndex].artifacts)
-
         updateWorkspace(groupId, workspaceData);
 
         res.send({
@@ -92,28 +79,31 @@ router.post('/add/document', async (req, res) => {
 /* Get list of documents. */
 router.get('/list/:group_id/:sectionName', (req, res) => {
   if (req.session.loggedIn) {
-    const group_id = req.params.group_id;
+    const groupIdRequested = req.params.group_id;
+    const groupId = req.session.groupId;
     const sectionName = req.params.sectionName;
 
-    const folder = `./uploads/${group_id}/${sectionName}/`
+    if (groupIdRequested === groupId) {    
+      const folder = `./uploads/${groupIdRequested}/${sectionName}/`
 
-    let files;
+      let files;
 
-    if (fs.existsSync(folder)) {
-      files = fs.readdirSync(
-        folder,
-        { withFileTypes: true },
-      );
-    } else {
-      files = []
+      if (fs.existsSync(folder)) {
+        files = fs.readdirSync(
+          folder,
+          { withFileTypes: true },
+        );
+      } else {
+        files = []
+      }
+
+      const list = files.map(file => file.name);
+
+      res.status(200).send({ documents: list });
     }
 
-    const list = files.map(file => file.name);
-
-    res.status(200).send({ documents: list });
-
   } else {
-    res.status(401).send("User not logged in!");
+    res.status(401).send("User is not logged in!");
   }
 
 });
@@ -121,21 +111,18 @@ router.get('/list/:group_id/:sectionName', (req, res) => {
 /*Delete a Document*/
 router.delete('/delete/document/:sectionName/:fileName',(req, res) => {
   if (req.session.loggedIn) {
-    const username = req.session.userName;
     const sectionName = req.params.sectionName;
     const fileName = req.params.fileName;
-    const {group_id} = getUser(username);
+    const groupId = req.session.groupId;
 
-    const workspaceData = getWorkspace(group_id);
-
+    const workspaceData = getWorkspace(groupId);
     const sectionIndex = workspaceData.sections.findIndex(section => section.name === sectionName);
     const artefactIndex = workspaceData.sections[sectionIndex].artifacts.findIndex(artefact => artefact.name === fileName);
 
     workspaceData.sections[sectionIndex].artifacts.splice(artefactIndex, 1)
+    updateWorkspace(groupId, workspaceData);
 
-    updateWorkspace(group_id, workspaceData);
-
-    const file = `/../uploads/${group_id}/${req.params.sectionName}/${req.params.fileName}`;
+    const file = `/../uploads/${groupId}/${req.params.sectionName}/${req.params.fileName}`;
     const filePath = path.join(__dirname, file);
 
     fs.unlink(filePath, (err) => {
@@ -161,13 +148,10 @@ router.post('/add/link', async (req, res) => {
           message: 'No link to add'
         });
       } else {
-        const username = req.session.userName;
         const sectionName = req.body.section;
         const linkName = req.body.linkName;
         const linkUrl = req.body.linkUrl;
-        
-        const user = getUser(username);
-        const groupId = user.group_id.toString();
+        const groupId = req.session.groupId;
 
         const artifact = {
           "type": "link",
@@ -176,15 +160,9 @@ router.post('/add/link', async (req, res) => {
         }
 
         const workspaceData = getWorkspace(groupId);
-
-        console.log(workspaceData)
-
         const sectionIndex = workspaceData.sections.findIndex(section => section.name === sectionName);
-
-        console.log(artifact)
+        
         workspaceData.sections[sectionIndex].artifacts.push(artifact)
-        console.log(workspaceData.sections[sectionIndex].artifacts)
-
         updateWorkspace(groupId, workspaceData);
 
         res.send({
@@ -203,22 +181,20 @@ router.post('/add/link', async (req, res) => {
   }
 });
 
-/*Delete a Document*/
+/*Delete a link*/
 router.delete('/delete/link/:sectionName/:linkName',(req, res) => {
   if (req.session.loggedIn) {
-    const username = req.session.userName;
     const sectionName = req.params.sectionName;
     const linkName = req.params.linkName;
-    const {group_id} = getUser(username);
+    const groupId = req.session.groupId;
 
-    const workspaceData = getWorkspace(group_id);
+    const workspaceData = getWorkspace(groupId);
 
     const sectionIndex = workspaceData.sections.findIndex(section => section.name === sectionName);
     const artefactIndex = workspaceData.sections[sectionIndex].artifacts.findIndex(artefact => artefact.name === linkName);
 
     workspaceData.sections[sectionIndex].artifacts.splice(artefactIndex, 1)
-
-    updateWorkspace(group_id, workspaceData);
+    updateWorkspace(groupId, workspaceData);
 
     res.status(200).send("Link name: "+ linkName +" Deleted.");
   } else {
