@@ -7,7 +7,228 @@
 	},
 	"item": [
 		{
-			"name": "Upload",
+			"name": "Get Index",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}",
+					"host": [
+						"{{baseUrl}}"
+					]
+				},
+				"description": "This endpoint returns a default index document. It can be used for heartbeat to see if server is up or down without other endpoint necessarily working."
+			},
+			"response": []
+		},
+		{
+			"name": "Login",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.globals.set('Session-ID', pm.cookies.get('session-id'))"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "username",
+							"value": "{{userName}}",
+							"type": "text"
+						},
+						{
+							"key": "password",
+							"value": "{{userPassword}}",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "{{baseUrl}}/users/login",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"users",
+						"login"
+					]
+				},
+				"description": "This endpoint allows the app to submit username and password to the server and to receive initial session-id token, which Browser is going to automatically attach to each request."
+			},
+			"response": []
+		},
+		{
+			"name": "Logout",
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Cookie",
+						"value": "session-id={{Session-ID}}",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{baseUrl}}/users/logout",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"users",
+						"logout"
+					],
+					"query": [
+						{
+							"key": "",
+							"value": null,
+							"disabled": true
+						}
+					]
+				},
+				"description": "This endpoint allows app to logout the user. It must have a cookie containing `session-id=` provided by the server during login."
+			},
+			"response": []
+		},
+		{
+			"name": "Get Users",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Cookie",
+						"value": "session-id={{Session-ID}}",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{baseUrl}}/users",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"users"
+					]
+				},
+				"description": "This endpoint allows the app to request list of users and their group memberships."
+			},
+			"response": []
+		},
+		{
+			"name": "Get Workspace Details",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Cookie",
+						"value": "session-id={{Session-ID}}",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{baseUrl}}/workspaces/{{groupId}}",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"workspaces",
+						"{{groupId}}"
+					]
+				},
+				"description": "This endpoint allows the app to request current user's Workspace information."
+			},
+			"response": []
+		},
+		{
+			"name": "Add New Section",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Cookie",
+						"value": "session-id={{Session-ID}}",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{baseUrl}}/workspaces/{{groupId}}/{{sectionName}}",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"workspaces",
+						"{{groupId}}",
+						"{{sectionName}}"
+					]
+				},
+				"description": "This endpoint allows the app to add new section to a workspace."
+			},
+			"response": []
+		},
+		{
+			"name": "Move Section Up or Down",
+			"request": {
+				"method": "PATCH",
+				"header": [
+					{
+						"key": "Cookie",
+						"value": "session-id={{Session-ID}}",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{baseUrl}}/workspaces/{{groupId}}/{{sectionName}}/{{direction}}",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"workspaces",
+						"{{groupId}}",
+						"{{sectionName}}",
+						"{{direction}}"
+					]
+				},
+				"description": "This endpoint allows the app to chaneg section's position inside the list of sections."
+			},
+			"response": []
+		},
+		{
+			"name": "Get Section Detail",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Cookie",
+						"value": "session-id={{Session-ID}}",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{baseUrl}}/workspaces/list/{{groupId}}/{{sectionName}}",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"workspaces",
+						"list",
+						"{{groupId}}",
+						"{{sectionName}}"
+					]
+				},
+				"description": "This endpoint allows the app to request list of artifacts inside the section."
+			},
+			"response": []
+		},
+		{
+			"name": "Upload Document",
 			"event": [
 				{
 					"listen": "test",
@@ -34,28 +255,115 @@
 						{
 							"key": "file",
 							"type": "file",
-							"src": "/Users/dsimanis/Pictures/IMG_0051.png"
+							"src": "/Users/dsimanis/Pictures/profile_linkedin.jpg"
+						},
+						{
+							"key": "section",
+							"value": "{{sectionName}}",
+							"type": "text"
 						}
 					]
 				},
 				"url": {
-					"raw": "http://localhost:3001/artifacts/documents/upload",
-					"protocol": "http",
+					"raw": "{{baseUrl}}/artifacts/add/document",
 					"host": [
-						"localhost"
+						"{{baseUrl}}"
 					],
-					"port": "3001",
 					"path": [
 						"artifacts",
-						"documents",
-						"upload"
+						"add",
+						"document"
 					]
-				}
+				},
+				"description": "This endpoint allows the app to upload a document type artifact to a specified section."
 			},
 			"response": []
 		},
 		{
-			"name": "Upload Link",
+			"name": "Download Document",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Cookie",
+						"value": "session-id={{Session-ID}}",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{baseUrl}}/artifacts/documents/download/{{sectionName}}/{{fileName}}",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"artifacts",
+						"documents",
+						"download",
+						"{{sectionName}}",
+						"{{fileName}}"
+					]
+				},
+				"description": "This endpoint allows the app to download specified document type artifact."
+			},
+			"response": []
+		},
+		{
+			"name": "Delete Document",
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Cookie",
+						"value": "session-id={{Session-ID}}",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{baseUrl}}/artifacts/delete/document/{{sectionName}}/{{fileName}}",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"artifacts",
+						"delete",
+						"document",
+						"{{sectionName}}",
+						"{{fileName}}"
+					]
+				},
+				"description": "This endpoint allows the app to delete a specified document type artifact."
+			},
+			"response": []
+		},
+		{
+			"name": "Get Documents",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Cookie",
+						"value": "session-id={{Session-ID}}",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{baseUrl}}/artifacts/list/{{groupId}}/{{sectionName}}",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"artifacts",
+						"list",
+						"{{groupId}}",
+						"{{sectionName}}"
+					]
+				},
+				"description": "This endpoint allows the app to request a list of document type artefacts for the specified section."
+			},
+			"response": []
+		},
+		{
+			"name": "Add Link",
 			"event": [
 				{
 					"listen": "test",
@@ -81,85 +389,38 @@
 					"formdata": [
 						{
 							"key": "linkName",
-							"value": "GitHub",
+							"value": "{{linkName}}",
 							"type": "text"
 						},
 						{
 							"key": "linkUrl",
-							"value": "https://github.com/hh11100/cm2020-agil-t3g4-wcm",
+							"value": "{{linkUrl}}",
 							"type": "text"
 						},
 						{
 							"key": "section",
-							"value": "research",
+							"value": "{{sectionName}}",
 							"type": "text"
 						}
 					]
 				},
 				"url": {
-					"raw": "http://localhost:3001/artifacts/links/add",
-					"protocol": "http",
+					"raw": "{{baseUrl}}/artifacts/add/link",
 					"host": [
-						"localhost"
+						"{{baseUrl}}"
 					],
-					"port": "3001",
 					"path": [
 						"artifacts",
-						"links",
-						"add"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "Login",
-			"event": [
-				{
-					"listen": "test",
-					"script": {
-						"exec": [
-							"pm.globals.set('Session-ID', pm.cookies.get('session-id'))"
-						],
-						"type": "text/javascript"
-					}
-				}
-			],
-			"request": {
-				"method": "POST",
-				"header": [],
-				"body": {
-					"mode": "formdata",
-					"formdata": [
-						{
-							"key": "username",
-							"value": "user1",
-							"type": "text"
-						},
-						{
-							"key": "password",
-							"value": "notsogood",
-							"type": "text"
-						}
+						"add",
+						"link"
 					]
 				},
-				"url": {
-					"raw": "http://localhost:3001/users/login",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "3001",
-					"path": [
-						"users",
-						"login"
-					]
-				}
+				"description": "This endpoint allows the app to add Web Link type artefacts to a specified section."
 			},
 			"response": []
 		},
 		{
-			"name": "Logout",
+			"name": "Delete Link",
 			"request": {
 				"method": "DELETE",
 				"header": [
@@ -170,121 +431,19 @@
 					}
 				],
 				"url": {
-					"raw": "http://localhost:3001/users/logout",
-					"protocol": "http",
+					"raw": "{{baseUrl}}/artifacts/delete/link/{{sectionName}}/{{linkName}}",
 					"host": [
-						"localhost"
+						"{{baseUrl}}"
 					],
-					"port": "3001",
-					"path": [
-						"users",
-						"logout"
-					],
-					"query": [
-						{
-							"key": "",
-							"value": null,
-							"disabled": true
-						}
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "Get Index",
-			"request": {
-				"method": "GET",
-				"header": [],
-				"url": {
-					"raw": "http://localhost:3001/",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "3001",
-					"path": [
-						""
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "Download",
-			"request": {
-				"method": "GET",
-				"header": [
-					{
-						"key": "Cookie",
-						"value": "session-id={{Session-ID}}",
-						"type": "text"
-					}
-				],
-				"url": {
-					"raw": "http://localhost:3001/artifacts/download/{{fileName}}",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "3001",
 					"path": [
 						"artifacts",
-						"download",
-						"{{fileName}}"
+						"delete",
+						"link",
+						"{{sectionName}}",
+						"{{linkName}}"
 					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "Get Users",
-			"request": {
-				"method": "GET",
-				"header": [
-					{
-						"key": "Cookie",
-						"value": "session-id={{Session-ID}}",
-						"type": "text"
-					}
-				],
-				"url": {
-					"raw": "http://localhost:3001/users",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "3001",
-					"path": [
-						"users"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "Get Workspaces",
-			"request": {
-				"method": "GET",
-				"header": [
-					{
-						"key": "Cookie",
-						"value": "session-id={{Session-ID}}",
-						"type": "text"
-					}
-				],
-				"url": {
-					"raw": "http://localhost:3001/workspaces/testWorkspace",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "3001",
-					"path": [
-						"workspaces",
-						"testWorkspace"
-					]
-				}
+				},
+				"description": "This endpoint allows the app to delete a Web Link type artefact from the specified section."
 			},
 			"response": []
 		}
@@ -312,13 +471,41 @@
 	"variable": [
 		{
 			"key": "fileName",
-			"value": "IMG_0051.png",
+			"value": "profile_linkedin.jpg",
 			"type": "string"
 		},
 		{
-			"key": "basePath",
+			"key": "baseUrl",
 			"value": "localhost:3001",
 			"type": "string"
+		},
+		{
+			"key": "sectionName",
+			"value": "research"
+		},
+		{
+			"key": "linkName",
+			"value": "GitHub"
+		},
+		{
+			"key": "linkUrl",
+			"value": "https://github.com/hh11100/cm2020-agil-t3g4-wcm"
+		},
+		{
+			"key": "userName",
+			"value": "user1"
+		},
+		{
+			"key": "userPassword",
+			"value": "notsogood"
+		},
+		{
+			"key": "groupId",
+			"value": "100"
+		},
+		{
+			"key": "direction",
+			"value": "down"
 		}
 	]
 }
