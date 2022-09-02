@@ -33,8 +33,8 @@ const Workspace = ({ groupId }) => {
             <h2>{workspaceData.groupReference}</h2>
             <div className="workspaceSections">
               {
-                workspaceData.sections.map((section) =>
-                  <div className="sectionContainer" id={section.name}>
+                workspaceData.sections.map((section, index) =>
+                  <div key={index} className="sectionContainer" id={section.name} >
                     <Section
                       groupId={groupId}
                       sectionName={section.name}

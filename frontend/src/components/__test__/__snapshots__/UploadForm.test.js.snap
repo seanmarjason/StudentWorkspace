@@ -1,0 +1,72 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Upload Form should match snapshot 1`] = `
+<DocumentFragment>
+  <div
+    class="form uploadForm"
+  >
+    <span
+      class="closeButton"
+    >
+      ✕
+    </span>
+    <form>
+      <h4
+        class="title"
+      >
+        File Upload
+      </h4>
+      <div
+        class="button-container"
+      >
+        <input
+          type="file"
+        />
+        <button
+          class="submitButton"
+          type="submit"
+        >
+          Upload
+        </button>
+      </div>
+    </form>
+    <p
+      class="separator"
+    >
+      -- OR --
+    </p>
+    <form>
+      <h4
+        class="title"
+      >
+        Add Link to External Service
+      </h4>
+      <input
+        class="urlInput"
+        name="name"
+        placeholder="My Link Name"
+        required=""
+        type="string"
+        value=""
+      />
+      <input
+        class="urlInput"
+        name="url"
+        placeholder="https://www.example.com/"
+        required=""
+        type="url"
+      />
+      <button
+        class="submitButton"
+        type="submit"
+      >
+        Upload
+      </button>
+    </form>
+    <hr />
+    <div
+      class="uploadingStatus"
+    />
+  </div>
+</DocumentFragment>
+`;

@@ -23,8 +23,9 @@ jobs:
           node-version: '16.x'
       - name: npm install, build, and test
         run: |
-          npm install --workspace=frontend
-          npm run frontend-build
+          npm install
+          npm run build
+          npm run test
   deploy:
     if: github.event.pull_request.merged == true
     runs-on: ubuntu-latest

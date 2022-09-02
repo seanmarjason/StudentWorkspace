@@ -61,3 +61,4 @@ const Section = ({ groupId, sectionName }) => {
 };
 
 export { Section }
+// export default Section
