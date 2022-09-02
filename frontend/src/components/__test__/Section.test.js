@@ -3,19 +3,15 @@ import axios from 'axios';
 import { Section } from '../Section';
 
 const sectionWithNoDocuments = {
-  data: {
-    documents: []
-  }
+  data: []
 }
 
 const sectionWithDocuments = {
-  data: {
-    documents: [
-      'doc 1',
-      'doc 2',
-      'doc 3',
-    ]
-  }
+  data: [
+      { name: 'doc 1', type: 'file', url: ''},
+      { name: 'doc 2', type: 'file', url: ''},
+      { name: 'link 1', type: 'link', url: ''},
+  ]
 }
 
 jest.mock('axios');

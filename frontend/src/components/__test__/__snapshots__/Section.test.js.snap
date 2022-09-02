@@ -12,22 +12,19 @@ exports[`Section should match snapshot when user clicks an artifact 1`] = `
       class="sectionArtefacts"
     >
       <button
-        class="artefact"
-        value="\\"doc 1\\""
+        class="artefact artefact-file"
       >
         doc 1
       </button>
       <button
-        class="artefact"
-        value="\\"doc 2\\""
+        class="artefact artefact-file"
       >
         doc 2
       </button>
       <button
-        class="artefact"
-        value="\\"doc 3\\""
+        class="artefact artefact-link"
       >
-        doc 3
+        link 1
       </button>
       <button
         class="addArtefact"
@@ -58,22 +55,19 @@ exports[`Section should match snapshot when user tries to add artifact 1`] = `
       class="sectionArtefacts"
     >
       <button
-        class="artefact"
-        value="\\"doc 1\\""
+        class="artefact artefact-file"
       >
         doc 1
       </button>
       <button
-        class="artefact"
-        value="\\"doc 2\\""
+        class="artefact artefact-file"
       >
         doc 2
       </button>
       <button
-        class="artefact"
-        value="\\"doc 3\\""
+        class="artefact artefact-link"
       >
-        doc 3
+        link 1
       </button>
       <button
         class="addArtefact"
@@ -102,22 +96,19 @@ exports[`Section should match snapshot with documents 1`] = `
       class="sectionArtefacts"
     >
       <button
-        class="artefact"
-        value="\\"doc 1\\""
+        class="artefact artefact-file"
       >
         doc 1
       </button>
       <button
-        class="artefact"
-        value="\\"doc 2\\""
+        class="artefact artefact-file"
       >
         doc 2
       </button>
       <button
-        class="artefact"
-        value="\\"doc 3\\""
+        class="artefact artefact-link"
       >
-        doc 3
+        link 1
       </button>
       <button
         class="addArtefact"
