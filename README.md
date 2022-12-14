@@ -1,4 +1,4 @@
-# Final project for CM2020 Agile Software Projects
+# Student Workspace Application
 
 For now project consists of REACT.js frontend and Express.js backend. Right now only documents upload API is available on the backend. 
 

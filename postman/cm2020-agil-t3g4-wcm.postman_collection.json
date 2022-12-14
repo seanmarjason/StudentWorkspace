@@ -1,7 +1,7 @@
 {
 	"info": {
 		"_postman_id": "2caf3cdc-68ef-4d53-864f-e221c90bb070",
-		"name": "cm2020-agil-t3g4-wcm",
+		"name": "student-workspace",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
 		"_exporter_id": "5020374"
 	},
@@ -489,7 +489,7 @@
 		},
 		{
 			"key": "linkUrl",
-			"value": "https://github.com/hh11100/cm2020-agil-t3g4-wcm"
+			"value": "https://github.com/seanmarjason/StudentWorkspace"
 		},
 		{
 			"key": "userName",

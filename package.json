@@ -1,7 +1,7 @@
 {
-  "name": "cm2020-agil-t3g4-wcm",
+  "name": "student-workspace",
   "version": "1.0.0",
-  "description": "Monorepo for cm2020-agil-t3g4-wcm project",
+  "description": "Monorepo for student-workspace project",
   "main": "",
   "workspaces": [
     "frontend",

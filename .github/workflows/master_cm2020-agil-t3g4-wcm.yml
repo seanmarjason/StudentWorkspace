@@ -52,7 +52,7 @@ jobs:
         id: deploy-to-webapp
         uses: azure/webapps-deploy@v2
         with:
-          app-name: 'cm2020-agil-t3g4-wcm'
+          app-name: 'student-workspace'
           slot-name: 'Production'
           publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_75D455F0AC4C4DF1A6CF0C2C7C441DC8 }}
           package: .
